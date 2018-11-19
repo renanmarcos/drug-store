@@ -26,18 +26,102 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        rSButton1 = new rojeru_san.RSButton();
+        rSButton2 = new rojeru_san.RSButton();
+        rSButton3 = new rojeru_san.RSButton();
+        rSButton4 = new rojeru_san.RSButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 255, 51));
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(39, 153, 136));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 112, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 112, 380);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(39, 153, 136));
+        jLabel1.setText("MENU");
+
+        rSButton1.setBackground(new java.awt.Color(39, 153, 136));
+        rSButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/pill.png"))); // NOI18N
+        rSButton1.setText("         Medicamentos");
+        rSButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        rSButton2.setBackground(new java.awt.Color(39, 153, 136));
+        rSButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/box.png"))); // NOI18N
+        rSButton2.setText("                   Estoque");
+        rSButton2.setAlignmentY(0.0F);
+        rSButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        rSButton3.setBackground(new java.awt.Color(39, 153, 136));
+        rSButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/new-user.png"))); // NOI18N
+        rSButton3.setText("                   Clientes");
+        rSButton3.setAlignmentY(0.0F);
+        rSButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        rSButton4.setBackground(new java.awt.Color(39, 153, 136));
+        rSButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/money.png"))); // NOI18N
+        rSButton4.setText("                      Caixa");
+        rSButton4.setAlignmentY(0.0F);
+        rSButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rSButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                            .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(101, 101, 101)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(183, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addGap(57, 57, 57)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rSButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(110, 0, 890, 380);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,5 +162,13 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
+    private rojeru_san.RSButton rSButton1;
+    private rojeru_san.RSButton rSButton2;
+    private rojeru_san.RSButton rSButton3;
+    private rojeru_san.RSButton rSButton4;
     // End of variables declaration//GEN-END:variables
 }

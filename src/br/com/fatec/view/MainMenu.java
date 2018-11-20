@@ -15,6 +15,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -36,7 +37,14 @@ public class MainMenu extends javax.swing.JFrame {
         rSButton4 = new rojeru_san.RSButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Principal");
         setBackground(new java.awt.Color(51, 255, 51));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(getMinimumSize());
+        setMinimumSize(new java.awt.Dimension(887, 378));
+        setPreferredSize(getMinimumSize());
+        setResizable(false);
+        setSize(getMinimumSize());
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(39, 153, 136));

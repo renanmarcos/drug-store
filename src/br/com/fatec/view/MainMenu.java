@@ -41,7 +41,7 @@ public class MainMenu extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 255, 51));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(getMinimumSize());
-        setMinimumSize(new java.awt.Dimension(887, 378));
+        setMinimumSize(new java.awt.Dimension(887, 480));
         setPreferredSize(getMinimumSize());
         setResizable(false);
         setSize(getMinimumSize());
@@ -57,11 +57,11 @@ public class MainMenu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 112, 380);
+        jPanel1.setBounds(0, 0, 112, 480);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -72,24 +72,28 @@ public class MainMenu extends javax.swing.JFrame {
         rSButton1.setBackground(new java.awt.Color(39, 153, 136));
         rSButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/pill.png"))); // NOI18N
         rSButton1.setText("         Medicamentos");
+        rSButton1.setColorHover(new java.awt.Color(0, 139, 128));
         rSButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         rSButton2.setBackground(new java.awt.Color(39, 153, 136));
         rSButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/box.png"))); // NOI18N
         rSButton2.setText("                   Estoque");
         rSButton2.setAlignmentY(0.0F);
+        rSButton2.setColorHover(new java.awt.Color(0, 139, 128));
         rSButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         rSButton3.setBackground(new java.awt.Color(39, 153, 136));
         rSButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/new-user.png"))); // NOI18N
         rSButton3.setText("                   Clientes");
         rSButton3.setAlignmentY(0.0F);
+        rSButton3.setColorHover(new java.awt.Color(0, 139, 128));
         rSButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         rSButton4.setBackground(new java.awt.Color(39, 153, 136));
         rSButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/money.png"))); // NOI18N
         rSButton4.setText("                      Caixa");
         rSButton4.setAlignmentY(0.0F);
+        rSButton4.setColorHover(new java.awt.Color(0, 139, 128));
         rSButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -97,39 +101,38 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rSButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rSButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                            .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(101, 101, 101)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(183, Short.MAX_VALUE))
+                    .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(57, 57, 57)
+                .addGap(112, 112, 112)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rSButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(110, 0, 890, 380);
+        jPanel2.setBounds(110, 0, 780, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

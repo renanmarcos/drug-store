@@ -38,8 +38,8 @@ public class RegisterDrug extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         LabText = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        rSButton1 = new rojeru_san.RSButton();
-        rSButton2 = new rojeru_san.RSButton();
+        btGo = new rojeru_san.RSButton();
+        btBack = new rojeru_san.RSButton();
         jLabel8 = new javax.swing.JLabel();
         TypeText = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
@@ -93,15 +93,20 @@ public class RegisterDrug extends javax.swing.JFrame {
 
         jSeparator3.setBackground(new java.awt.Color(204, 204, 204));
 
-        rSButton1.setBackground(new java.awt.Color(255, 51, 51));
-        rSButton1.setText("Continuar");
-        rSButton1.setColorHover(new java.awt.Color(153, 0, 0));
-        rSButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btGo.setBackground(new java.awt.Color(255, 51, 51));
+        btGo.setText("Continuar");
+        btGo.setColorHover(new java.awt.Color(153, 0, 0));
+        btGo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        rSButton2.setBackground(new java.awt.Color(255, 51, 51));
-        rSButton2.setText("Voltar");
-        rSButton2.setColorHover(new java.awt.Color(153, 0, 0));
-        rSButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btBack.setBackground(new java.awt.Color(255, 51, 51));
+        btBack.setText("Voltar");
+        btBack.setColorHover(new java.awt.Color(153, 0, 0));
+        btBack.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
@@ -235,9 +240,9 @@ public class RegisterDrug extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btGo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -292,8 +297,8 @@ public class RegisterDrug extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btGo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -331,6 +336,11 @@ public class RegisterDrug extends javax.swing.JFrame {
     private void ExpiryTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpiryTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExpiryTextActionPerformed
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        new MainMenu().setVisible(true);
+        dispose(); 
+    }//GEN-LAST:event_btBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -374,6 +384,8 @@ public class RegisterDrug extends javax.swing.JFrame {
     private javax.swing.JTextField LabText;
     private javax.swing.JTextField NameText;
     private javax.swing.JTextField TypeText;
+    private rojeru_san.RSButton btBack;
+    private rojeru_san.RSButton btGo;
     private javax.swing.ButtonGroup groupGenerico;
     private javax.swing.ButtonGroup groupPrescricao;
     private javax.swing.JLabel jLabel10;
@@ -395,7 +407,5 @@ public class RegisterDrug extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private rojeru_san.RSButton rSButton1;
-    private rojeru_san.RSButton rSButton2;
     // End of variables declaration//GEN-END:variables
 }

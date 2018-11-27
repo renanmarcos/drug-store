@@ -1,5 +1,14 @@
 package br.com.fatec.view;
 
+import br.com.fatec.DAO.ConsumerDAO;
+import br.com.fatec.model.Consumer;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -72,13 +81,13 @@ public class RegisterConsumer extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         EmailText = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        rSButton1 = new rojeru_san.RSButton();
-        rSButton2 = new rojeru_san.RSButton();
+        btGo = new rojeru_san.RSButton();
+        btBack = new rojeru_san.RSButton();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastrar Cliente Especial");
+        setTitle("Cadastro de Cliente Especial");
         setMaximumSize(getMinimumSize());
         setMinimumSize(new java.awt.Dimension(853, 515));
         setPreferredSize(getMinimumSize());
@@ -147,15 +156,25 @@ public class RegisterConsumer extends javax.swing.JFrame {
 
         jSeparator6.setBackground(new java.awt.Color(204, 204, 204));
 
-        rSButton1.setBackground(new java.awt.Color(1, 198, 83));
-        rSButton1.setText("Continuar");
-        rSButton1.setColorHover(new java.awt.Color(0, 102, 51));
-        rSButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btGo.setBackground(new java.awt.Color(1, 198, 83));
+        btGo.setText("Cadastrar");
+        btGo.setColorHover(new java.awt.Color(0, 102, 51));
+        btGo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGoActionPerformed(evt);
+            }
+        });
 
-        rSButton2.setBackground(new java.awt.Color(1, 198, 83));
-        rSButton2.setText("Voltar");
-        rSButton2.setColorHover(new java.awt.Color(0, 102, 51));
-        rSButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btBack.setBackground(new java.awt.Color(1, 198, 83));
+        btBack.setText("Voltar");
+        btBack.setColorHover(new java.awt.Color(0, 102, 51));
+        btBack.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(1, 198, 83));
@@ -208,9 +227,9 @@ public class RegisterConsumer extends javax.swing.JFrame {
                                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
-                        .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btGo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -264,8 +283,8 @@ public class RegisterConsumer extends javax.swing.JFrame {
                         .addGap(83, 83, 83))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btGo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
@@ -295,6 +314,52 @@ public class RegisterConsumer extends javax.swing.JFrame {
     private void EmailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailTextActionPerformed
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        new ConsumerOptions().setVisible(true);
+        dispose();  
+    }//GEN-LAST:event_btBackActionPerformed
+
+    private void btGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGoActionPerformed
+        String Phone = PhoneText.getText().replace("(", "");
+        Phone = Phone.replace(")", "");
+        Phone = Phone.replace("-", "");
+
+        Consumer consumer;
+        ConsumerDAO consumerDAO = new ConsumerDAO();   
+        consumer = new Consumer();
+        consumer.setIdConsumer(1);
+        consumer.setDate(convertDateToDatabase(BirthText.getText()));
+        consumer.setCpf(CPFText.getText());
+        consumer.setEmail(EmailText.getText());
+        consumer.setName(NameText.getText());
+        consumer.setFone(Phone);
+        consumer.setRg(RGText.getText());
+        try {
+            if(consumerDAO.insert(consumer)) {
+                JOptionPane.showMessageDialog(this,
+                        "Cliente cadastrado com Sucesso!",
+                        "Mensagem ao Usuário",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this,
+                        "Erro ao Cadastrar",
+                        "Mensagem ao Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,
+                        "Erro SQL " + ex.getMessage(),
+                        "Mensagem ao Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this,
+                        "Erro Class " + ex.getMessage(),
+                        "Mensagem ao Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btGoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,6 +403,8 @@ public class RegisterConsumer extends javax.swing.JFrame {
     private javax.swing.JTextField NameText;
     private javax.swing.JTextField PhoneText;
     private javax.swing.JTextField RGText;
+    private rojeru_san.RSButton btBack;
+    private rojeru_san.RSButton btGo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -353,7 +420,16 @@ public class RegisterConsumer extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private rojeru_san.RSButton rSButton1;
-    private rojeru_san.RSButton rSButton2;
     // End of variables declaration//GEN-END:variables
+    public String convertDateToDatabase(String date) {
+        java.util.Date FormatDate;
+        String DatabaseDate = "";
+        try {
+            FormatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            DatabaseDate = new SimpleDateFormat("yyyy-MM-dd").format(FormatDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(ManageConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return DatabaseDate;
+    }
 }

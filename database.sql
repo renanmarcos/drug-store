@@ -1,16 +1,20 @@
 CREATE DATABASE drugstore;
 USE drugstore;
 
-CREATE TABLE client(
+CREATE TABLE specialclient(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cpf INT(11) UNIQUE NOT NULL,
-    email VARCHAR(60) UNIQUE NOT NULL
+    name VARCHAR(120) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    rg VARCHAR(12) UNIQUE NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    email VARCHAR(60) UNIQUE NOT NULL,
+    databirth DATE
 );
 
 CREATE TABLE employee(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
-    cpf INT(11) UNIQUE NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
     is_manager BIT DEFAULT 0 NOT NULL,
     email VARCHAR(60) UNIQUE NOT NULL,
     user VARCHAR(20) UNIQUE NOT NULL,
@@ -36,7 +40,7 @@ CREATE TABLE drug(
     name VARCHAR(120) NOT NULL
 );
 
-CREATE TABLE order(
+CREATE TABLE order_info(
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
@@ -50,6 +54,6 @@ CREATE TABLE order_items(
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES order(id),
+    FOREIGN KEY(order_id) REFERENCES order_info(id),
     FOREIGN KEY(drug_id) REFERENCES drug(id)
 );

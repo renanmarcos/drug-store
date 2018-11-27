@@ -97,13 +97,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="rSButton3" max="32767" attributes="0"/>
-                      <Component id="rSButton1" min="-2" pref="271" max="-2" attributes="0"/>
+                      <Component id="btConsumer" max="32767" attributes="0"/>
+                      <Component id="btDrug" min="-2" pref="271" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="106" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="rSButton2" min="-2" pref="271" max="-2" attributes="0"/>
-                      <Component id="rSButton4" min="-2" pref="271" max="-2" attributes="0"/>
+                      <Component id="btStock" min="-2" pref="271" max="-2" attributes="0"/>
+                      <Component id="btCash" min="-2" pref="271" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
@@ -114,15 +114,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rSButton3" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
-                      <Component id="rSButton2" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="btConsumer" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="btStock" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rSButton4" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
-                      <Component id="rSButton1" alignment="3" min="-2" pref="79" max="-2" attributes="0"/>
+                      <Component id="btCash" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="btDrug" alignment="3" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="111" max="32767" attributes="0"/>
               </Group>
@@ -141,7 +141,7 @@
             <Property name="text" type="java.lang.String" value="MENU"/>
           </Properties>
         </Component>
-        <Component class="rojeru_san.RSButton" name="rSButton1">
+        <Component class="rojeru_san.RSButton" name="btDrug">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>
@@ -157,8 +157,11 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDrugActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="rSButton2">
+        <Component class="rojeru_san.RSButton" name="btStock">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>
@@ -175,14 +178,17 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btStockActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="rSButton3">
+        <Component class="rojeru_san.RSButton" name="btConsumer">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/fatec/view/new-user.png"/>
+              <Image iconType="3" name="/br/com/fatec/view/client.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="                   Clientes"/>
             <Property name="alignmentY" type="float" value="0.0"/>
@@ -193,8 +199,11 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btConsumerActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="rSButton4">
+        <Component class="rojeru_san.RSButton" name="btCash">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>

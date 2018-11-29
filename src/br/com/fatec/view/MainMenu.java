@@ -1,13 +1,5 @@
-/*
- * Criado em: 15/11/2018
- * Faculdade de Tecnologia de São Caetano do Sul - ADSMA4
- */
 package br.com.fatec.view;
 
-/**
- *
- * @author Renan Marcos <renan.ferreira18@fatec.sp.gov.br>
- */
 public class MainMenu extends javax.swing.JFrame {
 
     /**

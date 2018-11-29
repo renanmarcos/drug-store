@@ -1,17 +1,6 @@
 package br.com.fatec.view;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Matheus1
- */
 public class RegisterDrug extends javax.swing.JFrame {
-
     /**
      * Creates new form RegisterConsumer
      */
@@ -303,7 +292,7 @@ public class RegisterDrug extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(104, 0, 720, 487);
+        jPanel1.setBounds(104, 0, 720, 504);
 
         jPanel3.setBackground(new java.awt.Color(255, 51, 51));
         jPanel3.setForeground(new java.awt.Color(204, 204, 0));
@@ -316,11 +305,11 @@ public class RegisterDrug extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 0, 110, 487);
+        jPanel3.setBounds(0, 0, 110, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

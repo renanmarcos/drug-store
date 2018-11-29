@@ -1,13 +1,5 @@
-/*
- * Criado em: 15/11/2018
- * Faculdade de Tecnologia de São Caetano do Sul - ADSMA4
- */
 package br.com.fatec.view;
 
-/**
- *
- * @author Renan Marcos <renan.ferreira18@fatec.sp.gov.br>
- */
 public class MainMenu extends javax.swing.JFrame {
 
     /**
@@ -31,10 +23,10 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        rSButton1 = new rojeru_san.RSButton();
-        rSButton2 = new rojeru_san.RSButton();
-        rSButton3 = new rojeru_san.RSButton();
-        rSButton4 = new rojeru_san.RSButton();
+        btDrug = new rojeru_san.RSButton();
+        btStock = new rojeru_san.RSButton();
+        btConsumer = new rojeru_san.RSButton();
+        btCash = new rojeru_san.RSButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -69,32 +61,47 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(39, 153, 136));
         jLabel1.setText("MENU");
 
-        rSButton1.setBackground(new java.awt.Color(39, 153, 136));
-        rSButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/pill.png"))); // NOI18N
-        rSButton1.setText("         Medicamentos");
-        rSButton1.setColorHover(new java.awt.Color(0, 139, 128));
-        rSButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btDrug.setBackground(new java.awt.Color(39, 153, 136));
+        btDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/pill.png"))); // NOI18N
+        btDrug.setText("         Medicamentos");
+        btDrug.setColorHover(new java.awt.Color(0, 139, 128));
+        btDrug.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDrugActionPerformed(evt);
+            }
+        });
 
-        rSButton2.setBackground(new java.awt.Color(39, 153, 136));
-        rSButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/box.png"))); // NOI18N
-        rSButton2.setText("                   Estoque");
-        rSButton2.setAlignmentY(0.0F);
-        rSButton2.setColorHover(new java.awt.Color(0, 139, 128));
-        rSButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btStock.setBackground(new java.awt.Color(39, 153, 136));
+        btStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/box.png"))); // NOI18N
+        btStock.setText("                   Estoque");
+        btStock.setAlignmentY(0.0F);
+        btStock.setColorHover(new java.awt.Color(0, 139, 128));
+        btStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btStockActionPerformed(evt);
+            }
+        });
 
-        rSButton3.setBackground(new java.awt.Color(39, 153, 136));
-        rSButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/new-user.png"))); // NOI18N
-        rSButton3.setText("                   Clientes");
-        rSButton3.setAlignmentY(0.0F);
-        rSButton3.setColorHover(new java.awt.Color(0, 139, 128));
-        rSButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btConsumer.setBackground(new java.awt.Color(39, 153, 136));
+        btConsumer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/client.png"))); // NOI18N
+        btConsumer.setText("                   Clientes");
+        btConsumer.setAlignmentY(0.0F);
+        btConsumer.setColorHover(new java.awt.Color(0, 139, 128));
+        btConsumer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btConsumer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsumerActionPerformed(evt);
+            }
+        });
 
-        rSButton4.setBackground(new java.awt.Color(39, 153, 136));
-        rSButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/money.png"))); // NOI18N
-        rSButton4.setText("                      Caixa");
-        rSButton4.setAlignmentY(0.0F);
-        rSButton4.setColorHover(new java.awt.Color(0, 139, 128));
-        rSButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btCash.setBackground(new java.awt.Color(39, 153, 136));
+        btCash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/money.png"))); // NOI18N
+        btCash.setText("                      Caixa");
+        btCash.setAlignmentY(0.0F);
+        btCash.setColorHover(new java.awt.Color(0, 139, 128));
+        btCash.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -107,12 +114,12 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rSButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btConsumer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btStock, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCash, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
         );
         jPanel2Layout.setVerticalGroup(
@@ -120,14 +127,14 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(112, 112, 112)
+                .addGap(94, 94, 94)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(btConsumer, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btStock, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btCash, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
 
@@ -136,6 +143,19 @@ public class MainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btConsumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsumerActionPerformed
+        new ConsumerOptions().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btConsumerActionPerformed
+
+    private void btStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStockActionPerformed
+    }//GEN-LAST:event_btStockActionPerformed
+
+    private void btDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDrugActionPerformed
+        new RegisterDrug().setVisible(true);
+        dispose();  
+    }//GEN-LAST:event_btDrugActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,13 +193,13 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.RSButton btCash;
+    private rojeru_san.RSButton btConsumer;
+    private rojeru_san.RSButton btDrug;
+    private rojeru_san.RSButton btStock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private rojeru_san.RSButton rSButton1;
-    private rojeru_san.RSButton rSButton2;
-    private rojeru_san.RSButton rSButton3;
-    private rojeru_san.RSButton rSButton4;
     // End of variables declaration//GEN-END:variables
 }

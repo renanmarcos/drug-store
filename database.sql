@@ -8,7 +8,7 @@ CREATE TABLE SpecialClient (
     rg VARCHAR(12) UNIQUE NOT NULL,
     phone VARCHAR(10) NOT NULL,
     email VARCHAR(60) UNIQUE NOT NULL,
-    databirth DATE
+    datebirth DATE
 );
 
 CREATE TABLE Employee (
@@ -35,9 +35,14 @@ CREATE TABLE CashierLog (
 
 CREATE TABLE Drug (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    com_name VARCHAR(60) NOT NULL,
+    type_drug VARCHAR(60) NOT NULL,
+    lab VARCHAR(60) NOT NULL,
     is_generic BIT DEFAULT 0 NOT NULL,
-    unit_price DECIMAL(6,2) NOT NULL,
-    name VARCHAR(120) NOT NULL
+    need_pre BIT DEFAULT 0 NOT NULL,
+    unit_price DECIMAL(5,2) ZEROFILL NOT NULL,
+    desc_drug VARCHAR(120) NOT NULL,
+    dateshelf DATE
 );
 
 CREATE TABLE OrderInfo (
@@ -54,6 +59,6 @@ CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES order_info(id),
-    FOREIGN KEY(drug_id) REFERENCES drug(id)
+    FOREIGN KEY(Order_id) REFERENCES OrderInfo(id),
+    FOREIGN KEY(Drug_id) REFERENCES Drug(id)
 );

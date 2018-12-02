@@ -153,8 +153,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btStockActionPerformed
 
     private void btDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDrugActionPerformed
-        new RegisterDrug().setVisible(true);
-        dispose();  
+        new DrugOptions().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btDrugActionPerformed
 
     /**

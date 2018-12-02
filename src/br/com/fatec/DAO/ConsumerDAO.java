@@ -17,17 +17,17 @@ public class ConsumerDAO implements DAO <Consumer> {
     public boolean insert(Consumer obj) 
             throws SQLException, ClassNotFoundException {
             String sql;
-        sql = "INSERT INTO specialclient "
-            + "(name, cpf, rg, fone, email, databirth) "
+        sql = "INSERT INTO SpecialClient"
+            + "(name, cpf, rg, phone, email, datebirth) "
             + "values (?, ?, ?, ?, ?, ?);";
         Database.open();
         pst = Database.getConnection().prepareStatement(sql);
         pst.setString(1, obj.getName());
         pst.setString(2, obj.getCpf());
         pst.setString(3, obj.getRg());
-        pst.setString(4, obj.getFone());
+        pst.setString(4, obj.getPhone());
         pst.setString(5, obj.getEmail());
-        pst.setString(6, obj.getDate());
+        pst.setString(6, obj.getDateBirth());
 
         if (pst.executeUpdate() > 0) {
             Database.close();
@@ -42,8 +42,8 @@ public class ConsumerDAO implements DAO <Consumer> {
     public boolean edit(Consumer obj) 
             throws SQLException, ClassNotFoundException{
         String sql;
-        sql = "UPDATE specialclient SET name = ?, cpf = ?, "
-            + "rg = ?, fone = ?, email = ?, databirth = ? "
+        sql = "UPDATE SpecialClient SET name = ?, cpf = ?, "
+            + "rg = ?, phone = ?, email = ?, datebirth = ? "
             + "WHERE id = ?;";
         
         Database.open();
@@ -51,9 +51,9 @@ public class ConsumerDAO implements DAO <Consumer> {
         pst.setString(1, obj.getName());
         pst.setString(2, obj.getCpf());
         pst.setString(3, obj.getRg());
-        pst.setString(4, obj.getFone());
+        pst.setString(4, obj.getPhone());
         pst.setString(5, obj.getEmail());
-        pst.setString(6, obj.getDate());
+        pst.setString(6, obj.getDateBirth());
         pst.setInt(7, obj.getIdConsumer());
     
         if (pst.executeUpdate() > 0) {
@@ -68,7 +68,7 @@ public class ConsumerDAO implements DAO <Consumer> {
     public boolean delete(Consumer obj) 
             throws SQLException, ClassNotFoundException {
         String sql;
-        sql = "DELETE FROM specialclient "
+        sql = "DELETE FROM SpecialClient "
             + "WHERE id = ?;";
         Database.open();
         
@@ -85,7 +85,7 @@ public class ConsumerDAO implements DAO <Consumer> {
     public Consumer search(Consumer obj) 
             throws SQLException, ClassNotFoundException {
         consumer = null;
-        String sql = "SELECT * FROM specialclient "
+        String sql = "SELECT * FROM SpecialClient "
                    + "WHERE id = ?;";
         Database.open();
         pst = Database.getConnection().prepareStatement(sql);
@@ -98,9 +98,9 @@ public class ConsumerDAO implements DAO <Consumer> {
             consumer.setName(rs.getString("name"));
             consumer.setCpf(rs.getString("cpf"));
             consumer.setRg(rs.getString("rg"));
-            consumer.setFone(rs.getString("fone"));
+            consumer.setPhone(rs.getString("phone"));
             consumer.setEmail(rs.getString("email"));
-            consumer.setDate(rs.getString("databirth"));
+            consumer.setDateBirth(rs.getString("datebirth"));
         }
         
         rs.close();
@@ -112,7 +112,7 @@ public class ConsumerDAO implements DAO <Consumer> {
     public List<Consumer> list(String criterio) throws SQLException, ClassNotFoundException {
         ArrayList<Consumer> consumers = new ArrayList<>();
         consumer = null;
-        String sql = "SELECT * FROM specialclient ";
+        String sql = "SELECT * FROM SpecialClient ";
         
         if(criterio.length() > 0)
             sql += "WHERE " + criterio;
@@ -122,14 +122,13 @@ public class ConsumerDAO implements DAO <Consumer> {
         
         while(rs.next()) { 
             consumer = new Consumer();
-            consumer = new Consumer();
             consumer.setIdConsumer(rs.getInt("id"));
             consumer.setName(rs.getString("name"));
             consumer.setCpf(rs.getString("cpf"));
             consumer.setRg(rs.getString("rg"));
-            consumer.setFone(rs.getString("fone"));
+            consumer.setPhone(rs.getString("phone"));
             consumer.setEmail(rs.getString("email"));
-            consumer.setDate(rs.getString("databirth"));
+            consumer.setDateBirth(rs.getString("datebirth"));
             consumers.add(consumer);
         }
         rs.close();

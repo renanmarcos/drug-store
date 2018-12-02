@@ -277,7 +277,7 @@ public class RegisterConsumer extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(112, 0, 740, 494);
+        jPanel1.setBounds(112, 0, 740, 485);
 
         jPanel3.setBackground(new java.awt.Color(1, 198, 83));
         jPanel3.setForeground(new java.awt.Color(204, 204, 0));
@@ -309,17 +309,17 @@ public class RegisterConsumer extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGoActionPerformed
-        String Phone =  PhoneText.getText().replaceAll("[()-]", "");
+        String phone =  PhoneText.getText().replaceAll("[()-]", "");
 
         Consumer consumer;
         ConsumerDAO consumerDAO = new ConsumerDAO();   
         consumer = new Consumer();
         consumer.setIdConsumer(1);
-        consumer.setDate(convertDateToDatabase(BirthText.getText()));
+        consumer.setDateBirth(ConvertDateToDatabase(BirthText.getText()));
         consumer.setCpf(CPFText.getText());
         consumer.setEmail(EmailText.getText());
         consumer.setName(NameText.getText());
-        consumer.setFone(Phone);
+        consumer.setPhone(phone);
         consumer.setRg(RGText.getText());
         try {
             if(consumerDAO.insert(consumer)) {
@@ -407,15 +407,15 @@ public class RegisterConsumer extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     // End of variables declaration//GEN-END:variables
-    public String convertDateToDatabase(String date) {
-        java.util.Date FormatDate;
-        String DatabaseDate = "";
+    public String ConvertDateToDatabase(String date) {
+        java.util.Date formatDate;
+        String databaseDate = "";
         try {
-            FormatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            DatabaseDate = new SimpleDateFormat("yyyy-MM-dd").format(FormatDate);
+            formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
         } catch (ParseException ex) {
             Logger.getLogger(ManageConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return DatabaseDate;
+        return databaseDate;
     }
 }

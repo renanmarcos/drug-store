@@ -5,18 +5,18 @@ public class Consumer {
     private String name;
     private String cpf;
     private String rg;
-    private String fone;
+    private String phone;
     private String email;
-    private String date;
+    private String datebirth;
     
-    public Consumer(int idConsumer, String name, String cpf, String rg, String fone, String email, String date) {
+    public Consumer(int idConsumer, String name, String cpf, String rg, String phone, String email, String datebirth) {
         this.idConsumer = idConsumer;
         this.name = name;
         this.cpf = cpf;
         this.rg = rg;
-        this.fone = fone;
+        this.phone = phone;
         this.email = email;
-        this.date = date;
+        this.datebirth = datebirth;
     }
     public Consumer(){
     
@@ -53,12 +53,12 @@ public class Consumer {
         this.rg = rg;
     }
 
-    public String getFone() {
-        return fone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -69,11 +69,11 @@ public class Consumer {
         this.email = email;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateBirth() {
+        return datebirth;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateBirth(String datebirth) {
+        this.datebirth = datebirth;
     }
 }

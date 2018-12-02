@@ -16,13 +16,13 @@ public class ManageConsumer extends javax.swing.JFrame {
     Consumer consumer;
     ConsumerDAO consumerDAO = new ConsumerDAO();
     int cod;
-    DefaultTableModel TabelModel;
+    DefaultTableModel tabelModel;
     /**
      * Creates new form RegisterConsumer
      */
     public ManageConsumer() throws ParseException {
         initComponents();
-        tableFill();
+        TableFill();
         this.setLocationRelativeTo(null);
     }
 
@@ -330,16 +330,13 @@ public class ManageConsumer extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        String Phone = PhoneText.getText().replace("(", "");
-        Phone = Phone.replace(") ", "");
-        Phone = Phone.replace("-", "");
-        
+        String phone =  PhoneText.getText().replaceAll("[()-]", "");
         consumer = new Consumer();
         consumer.setName(NameText.getText());
         consumer.setCpf(CPFText.getText());
         consumer.setEmail(EmailText.getText());
-        consumer.setFone(Phone);
-        consumer.setDate(convertDateToDatabase(BirthText.getText()));
+        consumer.setPhone(phone);
+        consumer.setDateBirth(ConvertDateToDatabase(BirthText.getText()));
         consumer.setRg(RGText.getText()); 
         consumer.setIdConsumer(cod);
         try {
@@ -391,8 +388,8 @@ public class ManageConsumer extends javax.swing.JFrame {
                 RGText.setText(RG);
                 CPFText.setText(CPF);
                 EmailText.setText(c.getEmail());
-                PhoneText.setText(c.getFone());
-                BirthText.setText(convertDateToString(c.getDate()));
+                PhoneText.setText(c.getPhone());
+                BirthText.setText(ConvertDateToString(c.getDateBirth()));
                 Enable();
             }
             else {
@@ -428,7 +425,7 @@ public class ManageConsumer extends javax.swing.JFrame {
                 if(consumerDAO.delete(consumer)) {
                     JOptionPane.showMessageDialog(this, "Cliente excluido com sucesso", "Mensagem ao Usuário", JOptionPane.INFORMATION_MESSAGE);
                     Clear();
-                    tableFill();
+                    TableFill();
                     Disable();
                 }
                 else {
@@ -533,29 +530,29 @@ public class ManageConsumer extends javax.swing.JFrame {
         btEdit.setEnabled(false);
     }
     
-    public String convertDateToDatabase(String date) {
-        java.util.Date FormatDate;
-        String DatabaseDate = "";
+    public String ConvertDateToDatabase(String date) {
+        java.util.Date formatDate;
+        String databaseDate = "";
         try {
-            FormatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            DatabaseDate = new SimpleDateFormat("yyyy-MM-dd").format(FormatDate);
+            formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
         } catch (ParseException ex) {
             Logger.getLogger(ManageConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return DatabaseDate;
+        return databaseDate;
     }
-    public String convertDateToString(String date) {
-        java.util.Date FormatDate;
-        String DatabaseDate = "";
+    public String ConvertDateToString(String date) {
+        java.util.Date formatDate;
+        String databaseDate = "";
         try {
-            FormatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-            DatabaseDate = new SimpleDateFormat("ddMMyyyy").format(FormatDate);
+            formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            databaseDate = new SimpleDateFormat("ddMMyyyy").format(formatDate);
         } catch (ParseException ex) {
             Logger.getLogger(ManageConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return DatabaseDate;
+        return databaseDate;
     }
-    private void tableFill() {
+    private void TableFill() {
         try {
             List<Consumer> data = consumerDAO.list("");
 
@@ -576,10 +573,10 @@ public class ManageConsumer extends javax.swing.JFrame {
             }
             
             //coloca os vetores no modelo da tabela
-            TabelModel = new DefaultTableModel(lines, header);
+            tabelModel = new DefaultTableModel(lines, header);
             
             //jogar o modelo dentro do jtable
-            tbClient.setModel(TabelModel);
+            tbClient.setModel(tabelModel);
             
             //ajustar tamanhos das colunas
             tbClient.getColumnModel().getColumn(0)

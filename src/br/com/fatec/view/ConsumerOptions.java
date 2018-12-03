@@ -48,7 +48,7 @@ public class ConsumerOptions extends javax.swing.JFrame {
         );
 
         btAdd.setBackground(new java.awt.Color(1, 198, 83));
-        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/new-user.png"))); // NOI18N
+        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/new-user.png"))); // NOI18N
         btAdd.setText("            Adicionar");
         btAdd.setColorHover(new java.awt.Color(0, 102, 51));
         btAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -59,7 +59,7 @@ public class ConsumerOptions extends javax.swing.JFrame {
         });
 
         btManage.setBackground(new java.awt.Color(1, 198, 83));
-        btManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/list.png"))); // NOI18N
+        btManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/list.png"))); // NOI18N
         btManage.setText("            Gerenciar");
         btManage.setColorHover(new java.awt.Color(0, 102, 51));
         btManage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -81,7 +81,7 @@ public class ConsumerOptions extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 198, 83));
-        jLabel1.setText("OPÇÕES");
+        jLabel1.setText("CLIENTES");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

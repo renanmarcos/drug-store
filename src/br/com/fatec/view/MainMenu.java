@@ -24,9 +24,9 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btDrug = new rojeru_san.RSButton();
-        btStock = new rojeru_san.RSButton();
+        btOrder = new rojeru_san.RSButton();
         btConsumer = new rojeru_san.RSButton();
-        btCash = new rojeru_san.RSButton();
+        btCashier = new rojeru_san.RSButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -62,7 +62,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1.setText("MENU");
 
         btDrug.setBackground(new java.awt.Color(39, 153, 136));
-        btDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/pill.png"))); // NOI18N
+        btDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/pill.png"))); // NOI18N
         btDrug.setText("         Medicamentos");
         btDrug.setColorHover(new java.awt.Color(0, 139, 128));
         btDrug.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -72,20 +72,20 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        btStock.setBackground(new java.awt.Color(39, 153, 136));
-        btStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/box.png"))); // NOI18N
-        btStock.setText("                   Estoque");
-        btStock.setAlignmentY(0.0F);
-        btStock.setColorHover(new java.awt.Color(0, 139, 128));
-        btStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btStock.addActionListener(new java.awt.event.ActionListener() {
+        btOrder.setBackground(new java.awt.Color(39, 153, 136));
+        btOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/shopping-bag.png"))); // NOI18N
+        btOrder.setText("                   Vendas");
+        btOrder.setAlignmentY(0.0F);
+        btOrder.setColorHover(new java.awt.Color(0, 139, 128));
+        btOrder.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btStockActionPerformed(evt);
+                btOrderActionPerformed(evt);
             }
         });
 
         btConsumer.setBackground(new java.awt.Color(39, 153, 136));
-        btConsumer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/client.png"))); // NOI18N
+        btConsumer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/client.png"))); // NOI18N
         btConsumer.setText("                   Clientes");
         btConsumer.setAlignmentY(0.0F);
         btConsumer.setColorHover(new java.awt.Color(0, 139, 128));
@@ -96,12 +96,12 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        btCash.setBackground(new java.awt.Color(39, 153, 136));
-        btCash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/view/money.png"))); // NOI18N
-        btCash.setText("                      Caixa");
-        btCash.setAlignmentY(0.0F);
-        btCash.setColorHover(new java.awt.Color(0, 139, 128));
-        btCash.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btCashier.setBackground(new java.awt.Color(39, 153, 136));
+        btCashier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/money.png"))); // NOI18N
+        btCashier.setText("                      Caixa");
+        btCashier.setAlignmentY(0.0F);
+        btCashier.setColorHover(new java.awt.Color(0, 139, 128));
+        btCashier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -118,8 +118,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(btDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btStock, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btCash, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
         );
         jPanel2Layout.setVerticalGroup(
@@ -130,10 +130,10 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(94, 94, 94)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btConsumer, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btStock, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCash, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
@@ -149,13 +149,15 @@ public class MainMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btConsumerActionPerformed
 
-    private void btStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStockActionPerformed
-    }//GEN-LAST:event_btStockActionPerformed
-
     private void btDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDrugActionPerformed
         new DrugOptions().setVisible(true);
         dispose();
     }//GEN-LAST:event_btDrugActionPerformed
+
+    private void btOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrderActionPerformed
+        new OrderOptions().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,10 +195,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojeru_san.RSButton btCash;
+    private rojeru_san.RSButton btCashier;
     private rojeru_san.RSButton btConsumer;
     private rojeru_san.RSButton btDrug;
-    private rojeru_san.RSButton btStock;
+    private rojeru_san.RSButton btOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

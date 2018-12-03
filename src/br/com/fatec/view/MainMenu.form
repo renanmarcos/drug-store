@@ -102,8 +102,8 @@
                   </Group>
                   <EmptySpace pref="106" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btStock" min="-2" pref="271" max="-2" attributes="0"/>
-                      <Component id="btCash" min="-2" pref="271" max="-2" attributes="0"/>
+                      <Component id="btOrder" min="-2" pref="271" max="-2" attributes="0"/>
+                      <Component id="btCashier" min="-2" pref="271" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
@@ -117,11 +117,11 @@
                   <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btConsumer" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
-                      <Component id="btStock" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="btOrder" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btCash" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="btCashier" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
                       <Component id="btDrug" alignment="3" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="111" max="32767" attributes="0"/>
@@ -147,7 +147,7 @@
               <Color blue="88" green="99" red="27" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/fatec/view/pill.png"/>
+              <Image iconType="3" name="/br/com/fatec/image/pill.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="         Medicamentos"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -161,15 +161,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDrugActionPerformed"/>
           </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="btStock">
+        <Component class="rojeru_san.RSButton" name="btOrder">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/fatec/view/box.png"/>
+              <Image iconType="3" name="/br/com/fatec/image/shopping-bag.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="                   Estoque"/>
+            <Property name="text" type="java.lang.String" value="                   Vendas"/>
             <Property name="alignmentY" type="float" value="0.0"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="80" green="8b" red="0" type="rgb"/>
@@ -179,7 +179,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btStockActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOrderActionPerformed"/>
           </Events>
         </Component>
         <Component class="rojeru_san.RSButton" name="btConsumer">
@@ -188,7 +188,7 @@
               <Color blue="88" green="99" red="27" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/fatec/view/client.png"/>
+              <Image iconType="3" name="/br/com/fatec/image/client.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="                   Clientes"/>
             <Property name="alignmentY" type="float" value="0.0"/>
@@ -203,13 +203,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btConsumerActionPerformed"/>
           </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="btCash">
+        <Component class="rojeru_san.RSButton" name="btCashier">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="88" green="99" red="27" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/fatec/view/money.png"/>
+              <Image iconType="3" name="/br/com/fatec/image/money.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="                      Caixa"/>
             <Property name="alignmentY" type="float" value="0.0"/>

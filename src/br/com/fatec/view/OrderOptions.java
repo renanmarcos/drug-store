@@ -4,12 +4,12 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DrugOptions extends javax.swing.JFrame {
+public class OrderOptions extends javax.swing.JFrame {
 
     /**
      * Creates new form ConsumerOptions
      */
-    public DrugOptions() {
+    public OrderOptions() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -34,7 +34,7 @@ public class DrugOptions extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 204));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -47,10 +47,10 @@ public class DrugOptions extends javax.swing.JFrame {
             .addGap(0, 455, Short.MAX_VALUE)
         );
 
-        btAdd.setBackground(new java.awt.Color(255, 51, 51));
-        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/pill.png"))); // NOI18N
+        btAdd.setBackground(new java.awt.Color(0, 153, 204));
+        btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/add.png"))); // NOI18N
         btAdd.setText("            Adicionar");
-        btAdd.setColorHover(new java.awt.Color(153, 0, 0));
+        btAdd.setColorHover(new java.awt.Color(51, 153, 255));
         btAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,10 +58,10 @@ public class DrugOptions extends javax.swing.JFrame {
             }
         });
 
-        btManage.setBackground(new java.awt.Color(255, 51, 51));
+        btManage.setBackground(new java.awt.Color(0, 153, 204));
         btManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/fatec/image/list.png"))); // NOI18N
-        btManage.setText("            Gerenciar");
-        btManage.setColorHover(new java.awt.Color(153, 0, 0));
+        btManage.setText("            Listar");
+        btManage.setColorHover(new java.awt.Color(51, 153, 255));
         btManage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btManage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,9 +69,9 @@ public class DrugOptions extends javax.swing.JFrame {
             }
         });
 
-        btBack.setBackground(new java.awt.Color(255, 51, 51));
+        btBack.setBackground(new java.awt.Color(0, 153, 204));
         btBack.setText("Voltar");
-        btBack.setColorHover(new java.awt.Color(153, 0, 0));
+        btBack.setColorHover(new java.awt.Color(51, 153, 255));
         btBack.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,8 +80,8 @@ public class DrugOptions extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("MEDICAMENTOS");
+        jLabel1.setForeground(new java.awt.Color(0, 153, 204));
+        jLabel1.setText("VENDAS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,17 +136,12 @@ public class DrugOptions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
-        new RegisterDrug().setVisible(true);
+        new RegisterOrder().setVisible(true);
         dispose(); 
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageActionPerformed
-        try {
-            new ManageDrug().setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(DrugOptions.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        dispose();
+
     }//GEN-LAST:event_btManageActionPerformed
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
@@ -171,13 +166,13 @@ public class DrugOptions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DrugOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DrugOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DrugOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DrugOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -185,7 +180,7 @@ public class DrugOptions extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DrugOptions().setVisible(true);
+                new OrderOptions().setVisible(true);
             }
         });
     }

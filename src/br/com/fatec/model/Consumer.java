@@ -18,9 +18,15 @@ public class Consumer {
         this.email = email;
         this.datebirth = datebirth;
     }
-    public Consumer(){
     
+    public Consumer(){}
+
+    @Override
+    public String toString() {
+        if (idConsumer == -1) return "Nenhum";
+        return name + " - " + cpf;
     }
+    
     public int getIdConsumer() {
         return idConsumer;
     }

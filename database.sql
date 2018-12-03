@@ -45,7 +45,7 @@ CREATE TABLE Drug (
     dateshelf DATE
 );
 
-CREATE TABLE OrderInfo (
+CREATE TABLE Order (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
@@ -59,6 +59,6 @@ CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(Order_id) REFERENCES OrderInfo(id),
-    FOREIGN KEY(Drug_id) REFERENCES Drug(id)
+    FOREIGN KEY(order_id) REFERENCES Order(id),
+    FOREIGN KEY(drug_id) REFERENCES Drug(id)
 );

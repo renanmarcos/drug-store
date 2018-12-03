@@ -12,6 +12,7 @@ public class Drug {
     private float unitprice;
     private String descdrug;
     private String dateshelf;
+    
     public Drug(int idDrug, String comname, String typedrug, String lab, int isgeneric, int needpre, float unitprice, String descdrug, String dateshelf) {
         this.idDrug = idDrug;
         this.comname = comname;
@@ -23,9 +24,39 @@ public class Drug {
         this.descdrug = descdrug;
         this.dateshelf = dateshelf;
     }
-    public Drug(){
     
+    public Drug() {}
+
+    @Override
+    public String toString() {
+        return comname;
     }
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + this.idDrug;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Drug other = (Drug) obj;
+        if (this.idDrug != other.idDrug) {
+            return false;
+        }
+        return true;
+    }    
+    
     public int getIdDrug() {
         return idDrug;
     }

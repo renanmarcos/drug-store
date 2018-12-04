@@ -2,6 +2,7 @@ package br.com.fatec.view;
 
 import br.com.fatec.DAO.DrugDAO;
 import br.com.fatec.model.Drug;
+import br.com.fatec.services.StringTools;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -391,43 +392,50 @@ public class RegisterDrug extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGoActionPerformed
-        Drug drug;
-        DrugDAO drugDAO = new DrugDAO();   
-        drug = new Drug();
-        drug.setIdDrug(1);
-        drug.setComname(NameText.getText());
-        drug.setDescdrug(DescText.getText());
-        drug.setLab(LabText.getText());
-        drug.setTypedrug(TypeText.getText());
-        drug.setDateshelf(ConvertDateToDatabase(ExpiryText.getText()));
-        String price = PriceText.getText().replace(".", "").replace(",", ".");
-        drug.setUnitprice(Float.parseFloat(price));
-        drug.setIsgeneric(isGeneric);
-        drug.setNeedpre(isPrec);
-        try {
-            if(drugDAO.insert(drug)) {
+        
+        if (fieldsIsFilled()) {
+            Drug drug;
+            DrugDAO drugDAO = new DrugDAO();   
+            drug = new Drug();
+            drug.setComname(NameText.getText());
+            drug.setDescdrug(DescText.getText());
+            drug.setLab(LabText.getText());
+            drug.setTypedrug(TypeText.getText());
+            drug.setDateshelf(ConvertDateToDatabase(ExpiryText.getText()));
+            String price = PriceText.getText().replace(".", "").replace(",", ".");
+            drug.setUnitprice(Float.parseFloat(price));
+            drug.setIsgeneric(isGeneric);
+            drug.setNeedpre(isPrec);
+            try {
+                if(drugDAO.insert(drug)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Medicamento cadastrado com Sucesso!",
+                            "Mensagem ao Usuário",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao Cadastrar",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Medicamento cadastrado com Sucesso!",
-                        "Mensagem ao Usuário",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
+                            "Erro SQL " + ex.getMessage(),
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Erro ao Cadastrar",
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
+                            "Erro Class " + ex.getMessage(),
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            }  
+        } else {
             JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
+                        "Os campos precisam estar preenchidos corretamente",
                         "Mensagem ao Usuário",
                         JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-        }  
+        }
     }//GEN-LAST:event_btGoActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
@@ -521,5 +529,15 @@ public class RegisterDrug extends javax.swing.JFrame {
             Logger.getLogger(RegisterDrug.class.getName()).log(Level.SEVERE, null, ex);
         }
         return databaseDate;
+    }
+
+    private boolean fieldsIsFilled() {
+        String birthDate = ExpiryText.getText().replaceAll("[/]", "").trim();
+        String price = ExpiryText.getText().replaceAll("[.,]", "").trim();        
+        
+        return StringTools.isNotEmpty(
+                NameText.getText(), DescText.getText(), LabText.getText(),
+                TypeText.getText(), birthDate, price
+        );
     }
 }

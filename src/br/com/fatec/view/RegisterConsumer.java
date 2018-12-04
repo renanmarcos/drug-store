@@ -2,6 +2,8 @@ package br.com.fatec.view;
 
 import br.com.fatec.DAO.ConsumerDAO;
 import br.com.fatec.model.Consumer;
+import br.com.fatec.services.StringTools;
+import com.mysql.jdbc.StringUtils;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -310,40 +312,46 @@ public class RegisterConsumer extends javax.swing.JFrame {
 
     private void btGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGoActionPerformed
         String phone =  PhoneText.getText().replaceAll("[()-]", "");
-
-        Consumer consumer;
-        ConsumerDAO consumerDAO = new ConsumerDAO();   
-        consumer = new Consumer();
-        consumer.setIdConsumer(1);
-        consumer.setDateBirth(ConvertDateToDatabase(BirthText.getText()));
-        consumer.setCpf(CPFText.getText());
-        consumer.setEmail(EmailText.getText());
-        consumer.setName(NameText.getText());
-        consumer.setPhone(phone);
-        consumer.setRg(RGText.getText());
-        try {
-            if(consumerDAO.insert(consumer)) {
+        
+        if (fieldsIsFilled()) {
+            Consumer consumer;
+            ConsumerDAO consumerDAO = new ConsumerDAO();   
+            consumer = new Consumer();
+            consumer.setDateBirth(ConvertDateToDatabase(BirthText.getText()));
+            consumer.setCpf(CPFText.getText());
+            consumer.setEmail(EmailText.getText());
+            consumer.setName(NameText.getText());
+            consumer.setPhone(phone);
+            consumer.setRg(RGText.getText());
+            try {
+                if(consumerDAO.insert(consumer)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Cliente cadastrado com Sucesso!",
+                            "Mensagem ao Usuário",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao Cadastrar",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Cliente cadastrado com Sucesso!",
-                        "Mensagem ao Usuário",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
+                            "Erro ao inserir no Banco de Dados",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Erro ao Cadastrar",
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
+                            "Erro Class " + ex.getMessage(),
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
+        } else {
             JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
+                            "Os campos precisam estar preenchidos corretamente",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btGoActionPerformed
 
@@ -414,8 +422,25 @@ public class RegisterConsumer extends javax.swing.JFrame {
             formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
             databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
         } catch (ParseException ex) {
-            Logger.getLogger(ManageConsumer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                        "A data de nascimento precisa ser válida e estar no "
+                                + "formato dd/MM/yyyy",
+                        "Mensagem ao Usuário",
+                        JOptionPane.ERROR_MESSAGE);
         }
         return databaseDate;
     }
+
+    private boolean fieldsIsFilled() {
+        String phone = PhoneText.getText().replaceAll("[()-]", "").trim();
+        String cpf = CPFText.getText().replaceAll("[.-]", "").trim();
+        String rg = RGText.getText().replaceAll("[.-]", "").trim();
+        String birthDate = BirthText.getText().replaceAll("[/]", "").trim();       
+        
+        return StringTools.isNotEmpty(
+                phone, cpf, rg, birthDate, EmailText.getText(),
+                NameText.getText()
+        );
+    }  
+   
 }

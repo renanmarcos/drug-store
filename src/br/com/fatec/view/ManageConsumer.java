@@ -65,8 +65,8 @@ public class ManageConsumer extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         PhoneText = new javax.swing.JTextField();
         try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("(##) ####-####");
-            PhoneText = new javax.swing.JFormattedTextField(data);
+            javax.swing.text.MaskFormatter phone= new javax.swing.text.MaskFormatter("(##)####-####");
+            PhoneText = new javax.swing.JFormattedTextField(phone);
         }
         catch (Exception e){
         }
@@ -330,7 +330,7 @@ public class ManageConsumer extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        String phone =  PhoneText.getText().replaceAll("[()-]", "");
+        String phone = PhoneText.getText().replaceAll("[()-]", "");
         consumer = new Consumer();
         consumer.setName(NameText.getText());
         consumer.setCpf(CPFText.getText());
@@ -354,12 +354,12 @@ public class ManageConsumer extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
+                        "Erro ao inserir no Banco de Dados",
                         "Mensagem ao Usuário",
                         JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
+                        "Erro Class ",
                         "Mensagem ao Usuário",
                         JOptionPane.ERROR_MESSAGE);
         }

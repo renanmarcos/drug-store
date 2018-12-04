@@ -434,12 +434,12 @@ public class ManageDrug extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
+                        "Erro ao inserir no Banco de Dados",
                         "Mensagem ao Usuário",
                         JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
+                        "Erro Class ",
                         "Mensagem ao Usuário",
                         JOptionPane.ERROR_MESSAGE);
         }

@@ -40,12 +40,12 @@ CREATE TABLE Drug (
     lab VARCHAR(60) NOT NULL,
     is_generic BIT DEFAULT 0 NOT NULL,
     need_pre BIT DEFAULT 0 NOT NULL,
-    unit_price DECIMAL(5,2) ZEROFILL NOT NULL,
+    unit_price DECIMAL(6,2) NOT NULL,
     desc_drug VARCHAR(120) NOT NULL,
     dateshelf DATE
 );
 
-CREATE TABLE Order (
+CREATE TABLE Order_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
@@ -59,6 +59,6 @@ CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES Order(id),
+    FOREIGN KEY(order_id) REFERENCES Order_info(id),
     FOREIGN KEY(drug_id) REFERENCES Drug(id)
 );

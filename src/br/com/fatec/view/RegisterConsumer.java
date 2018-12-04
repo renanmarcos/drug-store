@@ -343,15 +343,15 @@ public class RegisterConsumer extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(this,
-                            "Erro Class " + ex.getMessage(),
+                            "Erro Class ",
                             "Mensagem ao Usuário",
                             JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this,
-                            "Os campos precisam estar preenchidos corretamente",
-                            "Mensagem ao Usuário",
-                            JOptionPane.ERROR_MESSAGE);
+                "Os campos precisam estar preenchidos corretamente",
+                "Mensagem ao Usuário",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btGoActionPerformed
 

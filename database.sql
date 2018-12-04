@@ -20,7 +20,7 @@ CREATE TABLE CashierLog (
     cashier_number INT NOT NULL,
     date_recorded DATE,
     time_recorded TIME,
-    FOREIGN KEY(cashier_number) REFERENCES cashier(number)
+    FOREIGN KEY(cashier_number) REFERENCES Cashier(number)
 );
 
 CREATE TABLE Drug (

@@ -281,7 +281,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhoneTextActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter(&quot;(##) ####-####&quot;);&#xd;&#xa;   PhoneText = new javax.swing.JFormattedTextField(data);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter phone= new javax.swing.text.MaskFormatter(&quot;(##)####-####&quot;);&#xd;&#xa;   PhoneText = new javax.swing.JFormattedTextField(phone);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">

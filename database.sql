@@ -49,6 +49,6 @@ CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES OrderInfo(id),
+    FOREIGN KEY(order_id) REFERENCES OrderInfo(id) ON DELETE CASCADE,
     FOREIGN KEY(drug_id) REFERENCES Drug(id)
 );

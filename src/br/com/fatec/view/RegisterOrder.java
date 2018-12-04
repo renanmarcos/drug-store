@@ -2,9 +2,11 @@ package br.com.fatec.view;
 
 import br.com.fatec.DAO.ConsumerDAO;
 import br.com.fatec.DAO.DrugDAO;
+import br.com.fatec.DAO.OrderDAO;
 import br.com.fatec.model.Consumer;
 import br.com.fatec.model.Drug;
 import br.com.fatec.model.Order;
+import br.com.fatec.services.StringTools;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -329,7 +331,44 @@ public class RegisterOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+        if (fieldsIsFilled()) {
+            OrderDAO orderDAO = new OrderDAO();
+            String discount = txtDiscount.getText().replace(".", "").replace(",", ".");
+            order.setDiscount(Float.parseFloat(discount));
+            String freight = txtDiscount.getText().replace(".", "").replace(",", ".");
+            order.setFreight(Float.parseFloat(freight));
+            Consumer consumer = (Consumer) cmbConsumers.getModel().getSelectedItem();
+            order.setSpecialClient(consumer);
+            
+            try {
+                if (orderDAO.insert(order)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Medicamento cadastrado com Sucesso!",
+                            "Mensagem ao Usuário",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao Cadastrar",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this,
+                            "Erro ao inserir no Banco de Dados",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(this,
+                            "Erro Class ",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Os campos precisam estar preenchidos corretamente",
+                "Mensagem ao Usuário",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
@@ -448,8 +487,16 @@ public class RegisterOrder extends javax.swing.JFrame {
         
         drugTableModel = new DefaultTableModel(rows, header);
         tbDrugs.setModel(drugTableModel);
-//        tbDrugs.getColumnModel().getColumn(0).setPreferredWidth(70);
-//        tbDrugs.getColumnModel().getColumn(1).setPreferredWidth(350);
-//        tbDrugs.getColumnModel().getColumn(2).setPreferredWidth(100);
+    }
+    
+    private boolean fieldsIsFilled() {
+        if (order.getEntrySet().isEmpty()) return false;
+        for (Map.Entry<Drug, Integer> entry : order.getEntrySet()) {
+            if (entry.getValue() <= 0) return false;
+        }
+        String freight = txtFreight.getText().replaceAll("[.,]", "").trim();
+        String discount = txtDiscount.getText().replaceAll("[.,]", "").trim();
+        
+        return StringTools.isNotEmpty(discount, freight);
     }
 }

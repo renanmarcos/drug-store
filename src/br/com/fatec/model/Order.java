@@ -2,16 +2,17 @@ package br.com.fatec.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Order {
+    private int id;
     private HashMap<Drug, Integer> drugs = new HashMap<>();
     private float freight, discount, total;
     private LocalDate dateOrdered;
     private LocalTime timeOrdered;  
+    private Consumer specialClient;
     
     public void addDrug(Drug drug, int quantity) {
         drugs.merge(drug, quantity, (oldQuantity, newQuantity) -> {
@@ -25,6 +26,22 @@ public class Order {
             if (oldQuantity <= newQuantity) return 0;
             return oldQuantity - newQuantity;
         });
+    }
+
+    public Consumer getSpecialClient() {
+        return specialClient;
+    }
+
+    public void setSpecialClient(Consumer specialClient) {
+        this.specialClient = specialClient;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public Set<Map.Entry<Drug, Integer>> getEntrySet() {

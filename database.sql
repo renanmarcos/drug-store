@@ -39,16 +39,18 @@ CREATE TABLE OrderInfo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
+    special_client_id INT,
     subtotal DECIMAL(12,2) NOT NULL,
     discount DECIMAL(12,2) NOT NULL,
     freight DECIMAL(12,2) NOT NULL,
-    total DECIMAL(12,2) NOT NULL
+    total DECIMAL(12,2) NOT NULL,
+    FOREIGN KEY(special_client_id) REFERENCES SpecialClient(id)
 );
 
 CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES OrderInfo(id),
+    FOREIGN KEY(order_id) REFERENCES OrderInfo(id) ON DELETE CASCADE,
     FOREIGN KEY(drug_id) REFERENCES Drug(id)
 );

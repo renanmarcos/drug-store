@@ -11,16 +11,6 @@ CREATE TABLE SpecialClient (
     datebirth DATE
 );
 
-CREATE TABLE Employee (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(120) NOT NULL,
-    cpf VARCHAR(14) UNIQUE NOT NULL,
-    is_manager BIT DEFAULT 0 NOT NULL,
-    email VARCHAR(60) UNIQUE NOT NULL,
-    user VARCHAR(20) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE Cashier (
     number INT AUTO_INCREMENT PRIMARY KEY
 );
@@ -45,7 +35,7 @@ CREATE TABLE Drug (
     dateshelf DATE
 );
 
-CREATE TABLE Order_info (
+CREATE TABLE OrderInfo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
@@ -59,6 +49,6 @@ CREATE TABLE OrderItems (
     order_id INT NOT NULL,
     drug_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES Order_info(id),
+    FOREIGN KEY(order_id) REFERENCES OrderInfo(id),
     FOREIGN KEY(drug_id) REFERENCES Drug(id)
 );

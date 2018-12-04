@@ -65,13 +65,6 @@ public class ManageDrug extends javax.swing.JFrame {
         tbDrug = new javax.swing.JTable();
         btDelete = new rojeru_san.RSButton();
         jLabel9 = new javax.swing.JLabel();
-        PriceText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price= new javax.swing.text.MaskFormatter("###.##");
-            PriceText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         TypeText = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         DescText = new javax.swing.JTextArea();
@@ -82,6 +75,7 @@ public class ManageDrug extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btBack2 = new rojeru_san.RSButton();
         jLabel12 = new javax.swing.JLabel();
+        PriceText = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
 
         btBack1.setBackground(new java.awt.Color(1, 198, 83));
@@ -205,15 +199,6 @@ public class ManageDrug extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Validade");
 
-        PriceText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PriceText.setBorder(null);
-        PriceText.setEnabled(false);
-        PriceText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PriceTextActionPerformed(evt);
-            }
-        });
-
         TypeText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TypeText.setBorder(null);
         TypeText.setEnabled(false);
@@ -259,6 +244,16 @@ public class ManageDrug extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("R$");
 
+        PriceText.setBorder(null);
+        PriceText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        PriceText.setEnabled(false);
+        PriceText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PriceText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PriceTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -271,13 +266,13 @@ public class ManageDrug extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel5)
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(jScrollPane2))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -302,8 +297,8 @@ public class ManageDrug extends javax.swing.JFrame {
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,16 +341,16 @@ public class ManageDrug extends javax.swing.JFrame {
                     .addComponent(NameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TypeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(LabText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(ExpíryText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addGap(14, 14, 14)
+                    .addComponent(jLabel12)
+                    .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +363,7 @@ public class ManageDrug extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PrescCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -417,7 +412,8 @@ public class ManageDrug extends javax.swing.JFrame {
         drug.setComname(NameText.getText());
         drug.setTypedrug(TypeText.getText());
         drug.setLab(LabText.getText());
-        drug.setUnitprice(Float.parseFloat(PriceText.getText()));
+        String price = PriceText.getText().replace(".", "").replace(",", ".");
+        drug.setUnitprice(Float.parseFloat(price));
         drug.setDateshelf(ConvertDateToDatabase(ExpíryText.getText()));
         drug.setDescdrug(DescText.getText()); 
         drug.setIsgeneric(GenericCombo.getSelectedIndex());
@@ -460,23 +456,20 @@ public class ManageDrug extends javax.swing.JFrame {
             Drug d = new Drug();
             d.setIdDrug(cod);
             d = drugDAO.search(d);
-            
-            String zeros = "00000";
-            String numero = zeros + Float.toString(d.getUnitprice()).replace(".", "");
-            String test =  numero.substring(numero.length() - 5);
-            StringBuilder stringBuilder = new StringBuilder(test);
-            stringBuilder.insert(test.length(), '0');
+            String numero = String.valueOf(d.getUnitprice()).replace(".", ",");
             if(d != null) {
                 //jogar dados para a tela
                 NameText.setText(d.getComname());
                 LabText.setText(d.getLab());
                 DescText.setText(d.getDescdrug());
-                PriceText.setText(test);
+                PriceText.setText(numero);
                 TypeText.setText(d.getTypedrug());
                 ExpíryText.setText(ConvertDateToString(d.getDateshelf()));
                 GenericCombo.setSelectedIndex(d.getIsgeneric());
                 PrescCombo.setSelectedIndex(d.getNeedpre());
                 Enable();
+                PriceText.requestFocus();
+                NameText.requestFocus();
             }
             else {
                 JOptionPane.showMessageDialog(this, 
@@ -521,10 +514,6 @@ public class ManageDrug extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
-    private void PriceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PriceTextActionPerformed
-
     private void TypeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TypeTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TypeTextActionPerformed
@@ -536,6 +525,10 @@ public class ManageDrug extends javax.swing.JFrame {
         new DrugOptions().setVisible(true);
         dispose();
     }//GEN-LAST:event_btBack2ActionPerformed
+
+    private void PriceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PriceTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -590,7 +583,7 @@ public class ManageDrug extends javax.swing.JFrame {
     private javax.swing.JTextField LabText;
     private javax.swing.JTextField NameText;
     private javax.swing.JComboBox<String> PrescCombo;
-    private javax.swing.JTextField PriceText;
+    private javax.swing.JFormattedTextField PriceText;
     private javax.swing.JTextField RGText;
     private javax.swing.JTextField TypeText;
     private rojeru_san.RSButton btBack;

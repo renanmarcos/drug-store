@@ -54,23 +54,16 @@ public class RegisterDrug extends javax.swing.JFrame {
         }
         catch (Exception e){
         }
-        PriceText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price = new javax.swing.text.MaskFormatter("###.##");
-            PriceText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         jSeparator4 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        txtFreight = new javax.swing.JFormattedTextField();
+        PriceText = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Medicamento");
-        setMaximumSize(getMinimumSize());
         setMinimumSize(new java.awt.Dimension(822, 590));
-        setPreferredSize(getMinimumSize());
         setResizable(false);
         setSize(getMinimumSize());
         getContentPane().setLayout(null);
@@ -204,9 +197,6 @@ public class RegisterDrug extends javax.swing.JFrame {
             }
         });
 
-        PriceText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PriceText.setBorder(null);
-
         jSeparator4.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -216,6 +206,14 @@ public class RegisterDrug extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("R$");
+
+        txtFreight.setBorder(null);
+        txtFreight.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtFreight.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        PriceText.setBorder(null);
+        PriceText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        PriceText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,9 +277,12 @@ public class RegisterDrug extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(txtFreight, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                        .addContainerGap(505, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,8 +334,9 @@ public class RegisterDrug extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(txtFreight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PriceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -398,7 +400,8 @@ public class RegisterDrug extends javax.swing.JFrame {
         drug.setLab(LabText.getText());
         drug.setTypedrug(TypeText.getText());
         drug.setDateshelf(ConvertDateToDatabase(ExpiryText.getText()));
-        drug.setUnitprice(Float.parseFloat(PriceText.getText()));
+        String price = PriceText.getText().replace(".", "").replace(",", ".");
+        drug.setUnitprice(Float.parseFloat(price));
         drug.setIsgeneric(isGeneric);
         drug.setNeedpre(isPrec);
         try {
@@ -478,7 +481,7 @@ public class RegisterDrug extends javax.swing.JFrame {
     private javax.swing.JTextField ExpiryText;
     private javax.swing.JTextField LabText;
     private javax.swing.JTextField NameText;
-    private javax.swing.JTextField PriceText;
+    private javax.swing.JFormattedTextField PriceText;
     private javax.swing.JTextField TypeText;
     private rojeru_san.RSButton btBack;
     private rojeru_san.RSButton btGo;
@@ -506,6 +509,7 @@ public class RegisterDrug extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JFormattedTextField txtFreight;
     // End of variables declaration//GEN-END:variables
     public String ConvertDateToDatabase(String date) {
         java.util.Date formatDate;

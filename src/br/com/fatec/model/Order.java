@@ -12,6 +12,7 @@ public class Order {
     private float freight, discount, total;
     private LocalDate dateOrdered;
     private LocalTime timeOrdered;  
+    private Consumer specialClient;
     
     public void addDrug(Drug drug, int quantity) {
         drugs.merge(drug, quantity, (oldQuantity, newQuantity) -> {
@@ -25,6 +26,14 @@ public class Order {
             if (oldQuantity <= newQuantity) return 0;
             return oldQuantity - newQuantity;
         });
+    }
+
+    public Consumer getSpecialClient() {
+        return specialClient;
+    }
+
+    public void setSpecialClient(Consumer specialClient) {
+        this.specialClient = specialClient;
     }
 
     public int getId() {

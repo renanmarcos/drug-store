@@ -1,6 +1,7 @@
 package br.com.fatec.DAO;
 
 import br.com.fatec.database.Database;
+import br.com.fatec.model.Consumer;
 import br.com.fatec.model.Drug;
 import br.com.fatec.model.Order;
 import java.sql.Date;
@@ -25,8 +26,9 @@ public class OrderDAO implements DAO <Order> {
             throws SQLException, ClassNotFoundException {
             String sql;
         sql = "INSERT INTO OrderInfo"
-            + "(date_ordered, time_ordered, subtotal, discount, freight, total) "
-            + "VALUES (?, ?, ?, ?, ?, ?);";
+            + "(date_ordered, time_ordered, subtotal, discount, freight, total,"
+                + " special_client_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?);";
         Database.open();
         pst = Database.getConnection().prepareStatement(sql, 
                 Statement.RETURN_GENERATED_KEYS);        
@@ -42,6 +44,7 @@ public class OrderDAO implements DAO <Order> {
         pst.setFloat(4, discount);
         pst.setFloat(5, freight);
         pst.setFloat(6, (subtotal + freight) - discount);
+        pst.setInt(7, obj.getSpecialClient().getIdConsumer());
 
         if (pst.executeUpdate() > 0) {
             ResultSet generatedKeys = pst.getGeneratedKeys();
@@ -74,8 +77,8 @@ public class OrderDAO implements DAO <Order> {
             throws SQLException, ClassNotFoundException{
         String sql;
         sql = "UPDATE OrderInfo SET date_ordered = ?, time_ordered = ?, "
-            + "subtotal = ?, discount = ?, freight = ?, total = ? "
-            + "WHERE id = ?;";
+            + "subtotal = ?, discount = ?, freight = ?, total = ?,"
+                + " special_client_id = ? WHERE id = ?;";
         
         Database.open();
         pst = Database.getConnection().prepareStatement(sql);        
@@ -92,6 +95,7 @@ public class OrderDAO implements DAO <Order> {
         pst.setFloat(5, freight);
         pst.setFloat(6, (subtotal + freight) - discount);
         pst.setFloat(7, obj.getId());
+        pst.setInt(8, obj.getSpecialClient().getIdConsumer());
 
         if (pst.executeUpdate() > 0) {               
             int orderId = obj.getId();
@@ -147,6 +151,11 @@ public class OrderDAO implements DAO <Order> {
             order.setTimeOrdered(rs.getTime("time_ordered").toLocalTime());
             order.setDiscount(rs.getFloat("discount"));
             order.setFreight(rs.getFloat("freight"));
+            ConsumerDAO consumerDAO = new ConsumerDAO();
+            Consumer consumer = new Consumer();
+            consumer.setIdConsumer(rs.getInt("special_client_id"));
+            consumer = consumerDAO.search(consumer);
+            order.setSpecialClient(consumer);
             
             sql = "SELECT * FROM OrderItems "
                    + "WHERE order_id = ?;";
@@ -188,6 +197,11 @@ public class OrderDAO implements DAO <Order> {
             order.setTimeOrdered(rs.getTime("time_ordered").toLocalTime());
             order.setDiscount(rs.getFloat("discount"));
             order.setFreight(rs.getFloat("freight"));
+            ConsumerDAO consumerDAO = new ConsumerDAO();
+            Consumer consumer = new Consumer();
+            consumer.setIdConsumer(rs.getInt("special_client_id"));
+            consumer = consumerDAO.search(consumer);
+            order.setSpecialClient(consumer);
             
             String sql2 = "SELECT * FROM OrderItems "
                    + "WHERE order_id = ?;";

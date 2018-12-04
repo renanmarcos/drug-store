@@ -39,10 +39,12 @@ CREATE TABLE OrderInfo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_ordered DATE,
     time_ordered TIME,
+    special_client_id INT,
     subtotal DECIMAL(12,2) NOT NULL,
     discount DECIMAL(12,2) NOT NULL,
     freight DECIMAL(12,2) NOT NULL,
-    total DECIMAL(12,2) NOT NULL
+    total DECIMAL(12,2) NOT NULL,
+    FOREIGN KEY(special_client_id) REFERENCES SpecialClient(id)
 );
 
 CREATE TABLE OrderItems (

@@ -1,5 +1,9 @@
 package br.com.fatec.view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MainMenu extends javax.swing.JFrame {
 
     /**
@@ -102,6 +106,11 @@ public class MainMenu extends javax.swing.JFrame {
         btCashier.setAlignmentY(0.0F);
         btCashier.setColorHover(new java.awt.Color(0, 139, 128));
         btCashier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btCashier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCashierActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,6 +167,15 @@ public class MainMenu extends javax.swing.JFrame {
         new OrderOptions().setVisible(true);
         dispose();
     }//GEN-LAST:event_btOrderActionPerformed
+
+    private void btCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCashierActionPerformed
+        try {
+            new ManageCashier().setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_btCashierActionPerformed
 
     /**
      * @param args the command line arguments

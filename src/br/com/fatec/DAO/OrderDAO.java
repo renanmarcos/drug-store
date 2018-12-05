@@ -4,6 +4,7 @@ import br.com.fatec.database.Database;
 import br.com.fatec.model.Consumer;
 import br.com.fatec.model.Drug;
 import br.com.fatec.model.Order;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +45,10 @@ public class OrderDAO implements DAO <Order> {
         pst.setFloat(4, discount);
         pst.setFloat(5, freight);
         pst.setFloat(6, (subtotal + freight) - discount);
-        pst.setInt(7, obj.getSpecialClient().getIdConsumer());
+        if (obj.getSpecialClient().getIdConsumer() == -1)
+            pst.setNull(7, java.sql.Types.NULL);
+        else
+            pst.setInt(7, obj.getSpecialClient().getIdConsumer());
 
         if (pst.executeUpdate() > 0) {
             ResultSet generatedKeys = pst.getGeneratedKeys();
@@ -139,7 +143,9 @@ public class OrderDAO implements DAO <Order> {
         String sql = "SELECT * FROM OrderInfo "
                    + "WHERE id = ?;";
         Database.open();
-        pst = Database.getConnection().prepareStatement(sql);
+        Connection con = Database.getConnection();
+        con.setAutoCommit(false);
+        pst = con.prepareStatement(sql);
         int orderId = obj.getId();
         pst.setInt(1, orderId);        
         rs = pst.executeQuery();
@@ -151,15 +157,20 @@ public class OrderDAO implements DAO <Order> {
             order.setTimeOrdered(rs.getTime("time_ordered").toLocalTime());
             order.setDiscount(rs.getFloat("discount"));
             order.setFreight(rs.getFloat("freight"));
+            order.setTotal(rs.getFloat("total"));
             ConsumerDAO consumerDAO = new ConsumerDAO();
             Consumer consumer = new Consumer();
             consumer.setIdConsumer(rs.getInt("special_client_id"));
-            consumer = consumerDAO.search(consumer);
+            if (rs.wasNull()) {
+                consumer.setIdConsumer(-1);
+            } else {
+                consumer = consumerDAO.search(consumer);
+            }            
             order.setSpecialClient(consumer);
             
             sql = "SELECT * FROM OrderItems "
                    + "WHERE order_id = ?;";
-            pst = Database.getConnection().prepareStatement(sql);
+            pst = con.prepareStatement(sql);
             pst.setInt(1, orderId);        
             rs = pst.executeQuery();
             
@@ -186,7 +197,9 @@ public class OrderDAO implements DAO <Order> {
         if(criterio.length() > 0)
             sql += "WHERE " + criterio;
         Database.open();
-        pst = Database.getConnection().prepareStatement(sql);
+        Connection con = Database.getConnection();
+        con.setAutoCommit(false);
+        pst = con.prepareStatement(sql);
         rs = pst.executeQuery();
         
         while(rs.next()) { 
@@ -197,15 +210,20 @@ public class OrderDAO implements DAO <Order> {
             order.setTimeOrdered(rs.getTime("time_ordered").toLocalTime());
             order.setDiscount(rs.getFloat("discount"));
             order.setFreight(rs.getFloat("freight"));
+            order.setTotal(rs.getFloat("total"));
             ConsumerDAO consumerDAO = new ConsumerDAO();
-            Consumer consumer = new Consumer();
+            Consumer consumer = new Consumer();            
             consumer.setIdConsumer(rs.getInt("special_client_id"));
-            consumer = consumerDAO.search(consumer);
+            if (rs.wasNull()) {
+                consumer.setIdConsumer(-1);
+            } else {
+                consumer = consumerDAO.search(consumer);                
+            }     
             order.setSpecialClient(consumer);
             
             String sql2 = "SELECT * FROM OrderItems "
                    + "WHERE order_id = ?;";
-            pst2 = Database.getConnection().prepareStatement(sql2);
+            pst2 = con.prepareStatement(sql2);
             pst2.setInt(1, orderId);        
             rs2 = pst2.executeQuery();
             
@@ -216,6 +234,7 @@ public class OrderDAO implements DAO <Order> {
                 drug = drugDAO.search(drug);
                 order.addDrug(drug, rs2.getInt("quantity"));
             }
+            rs2.close();
             orders.add(order);
         }
         rs.close();

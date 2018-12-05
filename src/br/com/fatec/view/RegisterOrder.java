@@ -344,7 +344,6 @@ public class RegisterOrder extends javax.swing.JFrame {
             String freight = txtDiscount.getText().replace(".", "").replace(",", ".");
             order.setFreight(Float.parseFloat(freight));
             Consumer consumer = (Consumer) cmbConsumers.getModel().getSelectedItem();
-            System.out.println(consumer);
             order.setSpecialClient(consumer);
             order.setTimeOrdered(LocalTime.now());
             order.setDateOrdered(LocalDate.now());
@@ -362,7 +361,6 @@ public class RegisterOrder extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
                 JOptionPane.showMessageDialog(this,
                             "Erro ao inserir no Banco de Dados",
                             "Mensagem ao Usuário",

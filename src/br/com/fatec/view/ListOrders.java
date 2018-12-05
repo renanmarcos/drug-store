@@ -1,29 +1,42 @@
 package br.com.fatec.view;
 
+import br.com.fatec.DAO.ConsumerDAO;
 import br.com.fatec.DAO.DrugDAO;
+import br.com.fatec.DAO.OrderDAO;
+import br.com.fatec.model.Consumer;
 import br.com.fatec.model.Drug;
+import br.com.fatec.model.Order;
+import br.com.fatec.services.StringTools;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
 
 public class ListOrders extends javax.swing.JFrame {
-    Drug drug;
-    DrugDAO drugDAO = new DrugDAO();
-    int cod;
-    DefaultTableModel tabelModel;
+    private Order order;
+    private OrderDAO orderDAO = new OrderDAO();
+    private DrugDAO drugDAO = new DrugDAO();
+    private int cod;
+    private DefaultTableModel orderTableModel;
+    private DefaultTableModel drugTableModel;
+    private DefaultComboBoxModel<Drug> drugBoxModel;
     /**
      * Creates new form RegisterDrug
      */
-    public ListOrders() throws ParseException {
+    public ListOrders() {
         initComponents();
         TableFill();
+        Disable();
         this.setLocationRelativeTo(null);
     }
 
@@ -36,96 +49,53 @@ public class ListOrders extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btBack1 = new rojeru_san.RSButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         DateText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
-            BirthText = new javax.swing.JFormattedTextField(data);
-        }
-        catch (Exception e){
-        }
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TimeText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##:##:##");
-            BirthText = new javax.swing.JFormattedTextField(data);
-        }
-        catch (Exception e){
-        }
-        RGText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##.###.###-#");
-            RGText = new javax.swing.JFormattedTextField(data);
-        }
-        catch (Exception e){
-        }
         jLabel7 = new javax.swing.JLabel();
         btEdit = new rojeru_san.RSButton();
-        btBack = new rojeru_san.RSButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbOrder = new javax.swing.JTable();
         btDelete = new rojeru_san.RSButton();
-        SubText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price= new javax.swing.text.MaskFormatter("###.##");
-            SubText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         ClientText = new javax.swing.JTextField();
         btBack2 = new rojeru_san.RSButton();
         jLabel12 = new javax.swing.JLabel();
-        DiscountText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price= new javax.swing.text.MaskFormatter("###.##");
-            SubText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        FreightText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price= new javax.swing.text.MaskFormatter("###.##");
-            SubText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        TotalText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter price= new javax.swing.text.MaskFormatter("###.##");
-            SubText = new javax.swing.JFormattedTextField(price);
-        }
-        catch (Exception e){
-        }
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbDrugs = new javax.swing.JTable();
+        btnInsertDrug = new rojeru_san.RSButton();
+        btnRemoveDrug = new rojeru_san.RSButton();
+        cmbDrugs = new javax.swing.JComboBox<>();
+        lblMedicamentos4 = new javax.swing.JLabel();
+        txtQuantity = new javax.swing.JFormattedTextField();
+        jSeparator6 = new javax.swing.JSeparator();
+        DiscountText = new javax.swing.JFormattedTextField();
+        TotalText = new javax.swing.JFormattedTextField();
+        FreightText = new javax.swing.JFormattedTextField();
+        SubText = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
-
-        btBack1.setBackground(new java.awt.Color(1, 198, 83));
-        btBack1.setText("Voltar");
-        btBack1.setColorHover(new java.awt.Color(0, 102, 51));
-        btBack1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btBack1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBack1ActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Medicamento");
-        setMinimumSize(new java.awt.Dimension(890, 730));
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(1090, 640));
+        setMinimumSize(new java.awt.Dimension(1090, 640));
         setResizable(false);
         setSize(getMinimumSize());
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1090, 640));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1090, 640));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
@@ -147,37 +117,18 @@ public class ListOrders extends javax.swing.JFrame {
         TimeText.setBorder(null);
         TimeText.setEnabled(false);
 
-        RGText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        RGText.setBorder(null);
-        RGText.setEnabled(false);
-        RGText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RGTextActionPerformed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Subtotal");
 
         btEdit.setBackground(new java.awt.Color(0, 153, 204));
         btEdit.setText("Editar");
-        btEdit.setColorHover(new java.awt.Color(153, 0, 0));
+        btEdit.setColorHover(new java.awt.Color(51, 153, 255));
         btEdit.setEnabled(false);
         btEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditActionPerformed(evt);
-            }
-        });
-
-        btBack.setBackground(new java.awt.Color(255, 51, 51));
-        btBack.setText("Voltar");
-        btBack.setColorHover(new java.awt.Color(153, 0, 0));
-        btBack.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBackActionPerformed(evt);
             }
         });
 
@@ -206,7 +157,7 @@ public class ListOrders extends javax.swing.JFrame {
 
         btDelete.setBackground(new java.awt.Color(0, 153, 204));
         btDelete.setText("Excluir");
-        btDelete.setColorHover(new java.awt.Color(153, 0, 0));
+        btDelete.setColorHover(new java.awt.Color(51, 153, 255));
         btDelete.setEnabled(false);
         btDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -215,16 +166,7 @@ public class ListOrders extends javax.swing.JFrame {
             }
         });
 
-        SubText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        SubText.setBorder(null);
-        SubText.setEnabled(false);
-        SubText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubTextActionPerformed(evt);
-            }
-        });
-
-        ClientText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ClientText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ClientText.setBorder(null);
         ClientText.setEnabled(false);
         ClientText.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +177,7 @@ public class ListOrders extends javax.swing.JFrame {
 
         btBack2.setBackground(new java.awt.Color(0, 153, 204));
         btBack2.setText("Voltar");
-        btBack2.setColorHover(new java.awt.Color(153, 0, 0));
+        btBack2.setColorHover(new java.awt.Color(51, 153, 255));
         btBack2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btBack2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,30 +188,12 @@ public class ListOrders extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("R$");
 
-        DiscountText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        DiscountText.setBorder(null);
-        DiscountText.setEnabled(false);
-        DiscountText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DiscountTextActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("R$");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 204, 204));
         jLabel14.setText("Desconto");
-
-        FreightText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        FreightText.setBorder(null);
-        FreightText.setEnabled(false);
-        FreightText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FreightTextActionPerformed(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("R$");
@@ -278,15 +202,6 @@ public class ListOrders extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setText("Frete");
 
-        TotalText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TotalText.setBorder(null);
-        TotalText.setEnabled(false);
-        TotalText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TotalTextActionPerformed(evt);
-            }
-        });
-
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setText("R$");
 
@@ -294,75 +209,162 @@ public class ListOrders extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(204, 204, 204));
         jLabel18.setText("Total");
 
+        tbDrugs.setBackground(new java.awt.Color(204, 204, 204));
+        tbDrugs.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tbDrugs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tbDrugs.setToolTipText("");
+        tbDrugs.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(tbDrugs);
+
+        btnInsertDrug.setBackground(new java.awt.Color(0, 153, 204));
+        btnInsertDrug.setText("Inserir");
+        btnInsertDrug.setColorHover(new java.awt.Color(51, 153, 255));
+        btnInsertDrug.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnInsertDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertDrugActionPerformed(evt);
+            }
+        });
+
+        btnRemoveDrug.setBackground(new java.awt.Color(0, 153, 204));
+        btnRemoveDrug.setText("Remover");
+        btnRemoveDrug.setColorHover(new java.awt.Color(51, 153, 255));
+        btnRemoveDrug.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRemoveDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveDrugActionPerformed(evt);
+            }
+        });
+
+        lblMedicamentos4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMedicamentos4.setForeground(new java.awt.Color(204, 204, 204));
+        lblMedicamentos4.setText("Quantidade:");
+
+        txtQuantity.setBorder(null);
+        txtQuantity.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtQuantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jSeparator6.setBackground(new java.awt.Color(204, 204, 204));
+
+        DiscountText.setBorder(null);
+        DiscountText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        DiscountText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        DiscountText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DiscountTextFocusLost(evt);
+            }
+        });
+
+        TotalText.setEditable(false);
+        TotalText.setBackground(new java.awt.Color(255, 255, 255));
+        TotalText.setBorder(null);
+        TotalText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        TotalText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        FreightText.setBorder(null);
+        FreightText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        FreightText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        FreightText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FreightTextFocusLost(evt);
+            }
+        });
+
+        SubText.setEditable(false);
+        SubText.setBackground(new java.awt.Color(255, 255, 255));
+        SubText.setBorder(null);
+        SubText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        SubText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1103, 1103, 1103)
-                                .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel14)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel13)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(DiscountText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel12)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(SubText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(1, 1, 1))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel18)
+                                                .addComponent(jLabel14)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel17)
+                                                .addComponent(jLabel13)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(DiscountText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel16)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel15)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(FreightText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(562, 562, 562))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(jLabel16)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel15)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(FreightText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(jLabel18)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(jLabel17)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(1, 1, 1))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(SubText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbDrugs, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblMedicamentos4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSeparator6)
+                                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnInsertDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnRemoveDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ClientText, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
+                                .addComponent(ClientText, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DateText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(1229, Short.MAX_VALUE)
-                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(591, 591, 591))
+                                .addComponent(TimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,48 +381,57 @@ public class ListOrders extends javax.swing.JFrame {
                     .addComponent(TimeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cmbDrugs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(94, 94, 94)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(btnInsertDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnRemoveDrug, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblMedicamentos4)
+                                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(SubText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(DiscountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(FreightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addComponent(SubText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13)
+                            .addComponent(DiscountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addComponent(FreightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel17)
+                            .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(112, 0, 770, 610);
+        jPanel1.setBounds(112, 0, 980, 640);
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 204));
         jPanel3.setForeground(new java.awt.Color(204, 204, 0));
@@ -433,91 +444,79 @@ public class ListOrders extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 0, 110, 610);
+        jPanel3.setBounds(0, 0, 110, 640);
 
         getAccessibleContext().setAccessibleName("Gerenciamento de Pedidos");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
-        new DrugOptions().setVisible(true);
-        dispose();  
-    }//GEN-LAST:event_btBackActionPerformed
-
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        drug = new Drug();
-        drug.setComname(DateText.getText());
-        drug.setTypedrug(ClientText.getText());
-        drug.setLab(TimeText.getText());
-        drug.setUnitprice(Float.parseFloat(SubText.getText()));
-        drug.setDateshelf(ConvertDateToDatabase(ExpíryText.getText()));
-        drug.setDescdrug(DescText.getText()); 
-        drug.setIsgeneric(GenericCombo.getSelectedIndex());
-        drug.setNeedpre(PrescCombo.getSelectedIndex());
-        drug.setIdDrug(cod);
-        try {
-            if(drugDAO.edit(drug)) {
+        if (fieldsIsFilled()) {
+            try {
+                if(orderDAO.edit(order)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Cadastro Alterado com Sucesso!",
+                            "Mensagem ao Usuário",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao Alterar",
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Cadastro Alterado com Sucesso!",
-                        "Mensagem ao Usuário",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
+                            "Erro SQL " + ex.getMessage(),
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "Erro ao Alterar",
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
+                            "Erro Class " + ex.getMessage(),
+                            "Mensagem ao Usuário",
+                            JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
+        } else {
             JOptionPane.showMessageDialog(this,
-                        "Erro SQL " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this,
-                        "Erro Class " + ex.getMessage(),
-                        "Mensagem ao Usuário",
-                        JOptionPane.ERROR_MESSAGE);
+            "Os campos precisam estar preenchidos corretamente",
+            "Mensagem ao Usuário",
+            JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btEditActionPerformed
-
-    private void RGTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RGTextActionPerformed
 
     private void tbOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbOrderMouseClicked
         int line = tbOrder.getSelectedRow();
         cod = (Integer)tbOrder.getValueAt(line, 0);
         try {
-            Drug d = new Drug();
-            d.setIdDrug(cod);
-            d = drugDAO.search(d);
+            order = null;
+            order = new Order();
+            order.setId(cod);
+            order = orderDAO.search(order);
             
-            String zeros = "00000";
-            String numero = zeros + Float.toString(d.getUnitprice()).replace(".", "");
-            String test =  numero.substring(numero.length() - 5);
-            StringBuilder stringBuilder = new StringBuilder(test);
-            stringBuilder.insert(test.length(), '0');
-            if(d != null) {
-                //jogar dados para a tela
-                DateText.setText(d.getComname());
-                TimeText.setText(d.getLab());
-                DescText.setText(d.getDescdrug());
-                SubText.setText(test);
-                ClientText.setText(d.getTypedrug());
-                ExpíryText.setText(ConvertDateToString(d.getDateshelf()));
-                GenericCombo.setSelectedIndex(d.getIsgeneric());
-                PrescCombo.setSelectedIndex(d.getNeedpre());
-                Enable();
+//            String zeros = "00000";
+//            String numero = Float.toString(order.getDiscount()).replace(".", "");
+//            String test =  numero.substring(numero.length() - 5);
+            if(order != null) {
+                ClientText.setText(order.getSpecialClient().toString());
+                DateText.setText(order.getDateOrdered().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                TimeText.setText(order.getTimeOrdered().toString());
+                DiscountText.setValue(order.getDiscount());
+                FreightText.setValue(order.getFreight());
+                TotalText.setValue(order.getTotal());
+                updateSubTotal();
+                updateDrugTable();
+                fillComboBox();
+                Enable();                
             }
             else {
                 JOptionPane.showMessageDialog(this, 
-                        "Medicamento não Encontrado",
+                        "Venda não Encontrada",
                         "Mensagem ao Usuário",
                         JOptionPane.INFORMATION_MESSAGE);
             }
@@ -534,11 +533,9 @@ public class ListOrders extends javax.swing.JFrame {
         resp = JOptionPane.showConfirmDialog(this,"Deseja realmente excluir?", "Mensagem ao Usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if(resp == JOptionPane.YES_OPTION){
-            drug = new Drug();
-            drug.setIdDrug(cod);
             try {
-                if(drugDAO.delete(drug)) {
-                    JOptionPane.showMessageDialog(this, "Cliente excluido com sucesso", "Mensagem ao Usuário", JOptionPane.INFORMATION_MESSAGE);
+                if(orderDAO.delete(order)) {
+                    JOptionPane.showMessageDialog(this, "Venda excluida com sucesso", "Mensagem ao Usuário", JOptionPane.INFORMATION_MESSAGE);
                     Clear();
                     TableFill();
                     Disable();
@@ -554,33 +551,46 @@ public class ListOrders extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btDeleteActionPerformed
 
-    private void SubTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SubTextActionPerformed
-
     private void ClientTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClientTextActionPerformed
 
-    private void btBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack1ActionPerformed
-    }//GEN-LAST:event_btBack1ActionPerformed
-
     private void btBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack2ActionPerformed
-        new DrugOptions().setVisible(true);
+        new OrderOptions().setVisible(true);
         dispose();
     }//GEN-LAST:event_btBack2ActionPerformed
 
-    private void DiscountTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiscountTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DiscountTextActionPerformed
+    private void btnInsertDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertDrugActionPerformed
+        if (!txtQuantity.getText().isEmpty()) {
+            Drug drug = (Drug) cmbDrugs.getSelectedItem();
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            order.addDrug(drug, quantity);
+            updateDrugTable();
+            updateSubTotal();
+        }        
+    }//GEN-LAST:event_btnInsertDrugActionPerformed
 
-    private void FreightTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FreightTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FreightTextActionPerformed
+    private void btnRemoveDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveDrugActionPerformed
+        if (!txtQuantity.getText().isEmpty()) {
+            Drug drug = (Drug) cmbDrugs.getSelectedItem();
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            order.removeDrug(drug, quantity);
+            updateDrugTable();
+            updateSubTotal();
+        }
+    }//GEN-LAST:event_btnRemoveDrugActionPerformed
 
-    private void TotalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TotalTextActionPerformed
+    private void DiscountTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DiscountTextFocusLost
+        String discount = DiscountText.getText().replace(".", "").replace(",", ".");        
+        order.setDiscount(Float.parseFloat(discount));
+        updateSubTotal();
+    }//GEN-LAST:event_DiscountTextFocusLost
+
+    private void FreightTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FreightTextFocusLost
+        String freight = FreightText.getText().replace(".", "").replace(",", ".");        
+        order.setFreight(Float.parseFloat(freight));
+        updateSubTotal();
+    }//GEN-LAST:event_FreightTextFocusLost
 
     /**
      * @param args the command line arguments
@@ -627,11 +637,7 @@ public class ListOrders extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new ListOrders().setVisible(true);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               new ListOrders().setVisible(true);
             }
         });
     }
@@ -639,17 +645,17 @@ public class ListOrders extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ClientText;
     private javax.swing.JTextField DateText;
-    private javax.swing.JTextField DiscountText;
-    private javax.swing.JTextField FreightText;
-    private javax.swing.JTextField RGText;
-    private javax.swing.JTextField SubText;
+    private javax.swing.JFormattedTextField DiscountText;
+    private javax.swing.JFormattedTextField FreightText;
+    private javax.swing.JFormattedTextField SubText;
     private javax.swing.JTextField TimeText;
-    private javax.swing.JTextField TotalText;
-    private rojeru_san.RSButton btBack;
-    private rojeru_san.RSButton btBack1;
+    private javax.swing.JFormattedTextField TotalText;
     private rojeru_san.RSButton btBack2;
     private rojeru_san.RSButton btDelete;
     private rojeru_san.RSButton btEdit;
+    private rojeru_san.RSButton btnInsertDrug;
+    private rojeru_san.RSButton btnRemoveDrug;
+    private javax.swing.JComboBox<Drug> cmbDrugs;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -665,96 +671,101 @@ public class ListOrders extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JLabel lblMedicamentos4;
+    private javax.swing.JTable tbDrugs;
     private javax.swing.JTable tbOrder;
+    private javax.swing.JFormattedTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
     private void Clear() {
-        DescText.setText("");
         DateText.setText("");
         TimeText.setText("");
-        ExpíryText.setText("");
-        SubText.setText("");  
         ClientText.setText("");
+        SubText.setText("");
+        DiscountText.setText("");  
+        TotalText.setText("");
+        TotalText.setText("");
+        txtQuantity.setText("");
+        cmbDrugs.setModel(null);
+        tbDrugs.setModel(null);
     }    
     private void Enable() {
         DateText.setEnabled(true);
         TimeText.setEnabled(true);
-        ExpíryText.setEnabled(true);
-        SubText.setEnabled(true);
         ClientText.setEnabled(true);
-        DescText.setEnabled(true);
-        PrescCombo.setEnabled(true);
-        GenericCombo.setEnabled(true);
-        btDelete.setEnabled(true);
+        DiscountText.setEnabled(true); 
         btEdit.setEnabled(true);
+        btDelete.setEnabled(true);
+        tbDrugs.setEnabled(true);
+        cmbDrugs.setEnabled(true);
+        txtQuantity.setEnabled(true);
+        btnInsertDrug.setEnabled(true);
+        btnRemoveDrug.setEnabled(true);
+        FreightText.setEnabled(true);
     }
     private void Disable() {
         DateText.setEnabled(false);
         TimeText.setEnabled(false);
-        ExpíryText.setEnabled(false);
-        SubText.setEnabled(false);
         ClientText.setEnabled(false);
-        DescText.setEnabled(false);
-        PrescCombo.setEnabled(false);
-        GenericCombo.setEnabled(false);
-        btDelete.setEnabled(false);
+        DiscountText.setEnabled(false); 
         btEdit.setEnabled(false);
+        btDelete.setEnabled(false);
+        tbDrugs.setEnabled(false);
+        cmbDrugs.setEnabled(false);
+        txtQuantity.setEnabled(false);
+        btnInsertDrug.setEnabled(false);
+        btnRemoveDrug.setEnabled(false);
+        FreightText.setEnabled(false);
     }
     
-    public String ConvertDateToDatabase(String date) {
-        java.util.Date formatDate;
-        String databaseDate = "";
-        try {
-            formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return databaseDate;
-    }
-    public String ConvertDateToString(String date) {
-        java.util.Date formatDate;
-        String databaseDate = "";
-        try {
-            formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-            databaseDate = new SimpleDateFormat("ddMMyyyy").format(formatDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return databaseDate;
-    }
+//    public String ConvertDateToDatabase(String date) {
+//        java.util.Date formatDate;
+//        String databaseDate = "";
+//        try {
+//            formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+//            databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return databaseDate;
+//    }
+//    public String ConvertDateToString(String date) {
+//        java.util.Date formatDate;
+//        String databaseDate = "";
+//        try {
+//            formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+//            databaseDate = new SimpleDateFormat("ddMMyyyy").format(formatDate);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return databaseDate;
+//    }
     private void TableFill() {
         try {
-            List<Drug> data = drugDAO.list("");
+            List<Order> data = orderDAO.list("");
 
-            Vector<String> header = new Vector<>(3);
-            header.add("Código");
-            header.add("Nome Comercial");
-            header.add("Tipo");
+            Vector<String> header = new Vector<>(5);
+            header.add("ID");
+            header.add("Data da Venda");
+            header.add("Hora da Venda");
+            header.add("Cliente");
+            header.add("Total");
             
             Vector lines = new Vector();
             Vector record = new Vector();
             
-            for(Drug c : data) {
-                record = new Vector(3);
-                record.add(c.getIdDrug());
-                record.add(c.getComname());
-                record.add(c.getTypedrug());
+            for(Order order : data) {
+                record = new Vector(5);
+                record.add(order.getId());
+                record.add(order.getDateOrdered().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                record.add(order.getTimeOrdered());
+                record.add(order.getSpecialClient());
+                record.add(order.getTotal());
                 lines.add(record);                
             }
-            
-            //coloca os vetores no modelo da tabela
-            tabelModel = new DefaultTableModel(lines, header);
-            
-            //jogar o modelo dentro do jtable
-            tbOrder.setModel(tabelModel);
-            
-            //ajustar tamanhos das colunas
-            tbOrder.getColumnModel().getColumn(0)
-                    .setPreferredWidth(70);
-            tbOrder.getColumnModel().getColumn(1)
-                    .setPreferredWidth(350);
-            tbOrder.getColumnModel().getColumn(2)
-                    .setPreferredWidth(100);
+            orderTableModel = new DefaultTableModel(lines, header);
+            tbOrder.setModel(orderTableModel);
             
         } 
         catch (SQLException ex) {
@@ -763,5 +774,64 @@ public class ListOrders extends javax.swing.JFrame {
         catch (ClassNotFoundException ex) {
             Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private boolean fieldsIsFilled() {
+        return true;
+//        if (order.getEntrySet().isEmpty()) return false;
+//        for (Map.Entry<Drug, Integer> entry : order.getEntrySet()) {
+//            if (entry.getValue() <= 0) return false;
+//        }
+//        String freight = txtFreight.getText().replaceAll("[.,]", "").trim();
+//        String discount = txtDiscount.getText().replaceAll("[.,]", "").trim();
+//        
+//        return StringTools.isNotEmpty(discount, freight);
+    }
+    
+    private void updateDrugTable() {
+        Vector<String> header = new Vector<>(2);
+        header.add("Nome do medicamento");
+        header.add("Quantidade");
+        Vector rows = new Vector();
+        
+        for(Map.Entry<Drug, Integer> entry : order.getEntrySet()) {
+            if (entry.getValue() > 0) {
+                Vector data = new Vector(2);
+                data.add(entry.getKey().getComname());
+                data.add(entry.getValue());
+                rows.add(data);
+            }               
+        }
+        
+        drugTableModel = new DefaultTableModel(rows, header);
+        tbDrugs.setModel(drugTableModel);
+    }
+    
+    private void fillComboBox() {  
+        try {
+            Vector<Drug> drugsData = new Vector<>(drugDAO.list(""));
+            drugBoxModel = new DefaultComboBoxModel<>(drugsData);
+            cmbDrugs.setModel(drugBoxModel);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, 
+                    "Erro de SQL: " + ex.getMessage(),
+                    "Mensagem ao Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, 
+                    "Erro de Classe " + ex.getMessage(),
+                    "Mensagem ao Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void updateSubTotal() {
+        float subtotal = 0;
+        for (Map.Entry<Drug, Integer> entry : order.getEntrySet()) {
+            subtotal += entry.getKey().getUnitprice() * entry.getValue();
+        }
+        SubText.setValue(subtotal);
+        order.setTotal((subtotal + order.getFreight()) - order.getDiscount());
+        TotalText.setValue(order.getTotal());
     }
 }

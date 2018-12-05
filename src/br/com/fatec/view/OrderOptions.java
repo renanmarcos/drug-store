@@ -141,7 +141,8 @@ public class OrderOptions extends javax.swing.JFrame {
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageActionPerformed
-
+        new ListOrders().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btManageActionPerformed
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed

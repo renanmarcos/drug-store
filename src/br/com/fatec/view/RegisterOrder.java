@@ -10,6 +10,8 @@ import br.com.fatec.services.StringTools;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -312,17 +314,21 @@ public class RegisterOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRemoveDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveDrugActionPerformed
-        Drug drug = (Drug) cmbDrugs.getSelectedItem();
-        int quantity = Integer.parseInt(txtQuantity.getText());
-        order.removeDrug(drug, quantity);
-        updateDrugTable();
+        if (!txtQuantity.getText().isEmpty()) {
+            Drug drug = (Drug) cmbDrugs.getSelectedItem();
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            order.removeDrug(drug, quantity);
+            updateDrugTable();
+        }
     }//GEN-LAST:event_btnRemoveDrugActionPerformed
 
     private void btnInsertDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertDrugActionPerformed
-        Drug drug = (Drug) cmbDrugs.getSelectedItem();
-        int quantity = Integer.parseInt(txtQuantity.getText());
-        order.addDrug(drug, quantity);  
-        updateDrugTable();
+        if (!txtQuantity.getText().isEmpty()) {
+            Drug drug = (Drug) cmbDrugs.getSelectedItem();
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            order.addDrug(drug, quantity);  
+            updateDrugTable();
+        }
     }//GEN-LAST:event_btnInsertDrugActionPerformed
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
@@ -339,6 +345,8 @@ public class RegisterOrder extends javax.swing.JFrame {
             order.setFreight(Float.parseFloat(freight));
             Consumer consumer = (Consumer) cmbConsumers.getModel().getSelectedItem();
             order.setSpecialClient(consumer);
+            order.setTimeOrdered(LocalTime.now());
+            order.setDateOrdered(LocalDate.now());
             
             try {
                 if (orderDAO.insert(order)) {

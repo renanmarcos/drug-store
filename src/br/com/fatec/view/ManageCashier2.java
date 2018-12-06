@@ -1,10 +1,13 @@
 package br.com.fatec.view;
 
 import br.com.fatec.DAO.DrugDAO;
+import br.com.fatec.model.Cashier;
+import br.com.fatec.model.CashierLog;
 import br.com.fatec.model.Drug;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -14,15 +17,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ManageCashier2 extends javax.swing.JFrame {
-    Drug drug;
-    DrugDAO drugDAO = new DrugDAO();
-    int cod;
-    DefaultTableModel tabelModel;
+    private static Cashier cashier;
+    private DefaultTableModel cashierLogModel;
     /**
      * Creates new form RegisterDrug
      */
-    public ManageCashier2() throws ParseException {
+    public ManageCashier2(Cashier cashier) {
         initComponents();
+        this.cashier = cashier;
+        NumberText.setText(Integer.toString(cashier.getNumber()));
+        String text = cashier.getCurrentStatus().equals("closed") ? "Fechado" : "Aberto";
+        StatusText.setText(text);
+        updateTable();
         this.setLocationRelativeTo(null);
     }
 
@@ -40,7 +46,6 @@ public class ManageCashier2 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         NumberText = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         RGText = new javax.swing.JTextField();
         try{
             javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##.###.###-#");
@@ -48,18 +53,10 @@ public class ManageCashier2 extends javax.swing.JFrame {
         }
         catch (Exception e){
         }
-        btStatus = new rojeru_san.RSButton();
         btBack = new rojeru_san.RSButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCashier = new javax.swing.JTable();
-        TimeText = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter time= new javax.swing.text.MaskFormatter("##:##:##");
-            TimeText = new javax.swing.JFormattedTextField(time);
-        }
-        catch (Exception e){
-        }
+        tbCashierLog = new javax.swing.JTable();
         btBack2 = new rojeru_san.RSButton();
         jLabel5 = new javax.swing.JLabel();
         StatusText = new javax.swing.JTextField();
@@ -79,7 +76,6 @@ public class ManageCashier2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Medicamento");
-        setMaximumSize(new java.awt.Dimension(856, 510));
         setMinimumSize(new java.awt.Dimension(856, 510));
         setResizable(false);
         setSize(getMinimumSize());
@@ -95,27 +91,12 @@ public class ManageCashier2 extends javax.swing.JFrame {
         NumberText.setBorder(null);
         NumberText.setEnabled(false);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Tempo Total");
-
         RGText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         RGText.setBorder(null);
         RGText.setEnabled(false);
         RGText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RGTextActionPerformed(evt);
-            }
-        });
-
-        btStatus.setBackground(new java.awt.Color(255, 102, 0));
-        btStatus.setText("Abrir");
-        btStatus.setColorHover(new java.awt.Color(204, 51, 0));
-        btStatus.setEnabled(false);
-        btStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btStatusActionPerformed(evt);
             }
         });
 
@@ -133,9 +114,9 @@ public class ManageCashier2 extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 102, 0));
         jLabel8.setText("Gerenciamento de Caixas");
 
-        tbCashier.setBackground(new java.awt.Color(204, 204, 204));
-        tbCashier.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tbCashier.setModel(new javax.swing.table.DefaultTableModel(
+        tbCashierLog.setBackground(new java.awt.Color(204, 204, 204));
+        tbCashierLog.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tbCashierLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -143,23 +124,14 @@ public class ManageCashier2 extends javax.swing.JFrame {
 
             }
         ));
-        tbCashier.setToolTipText("");
-        tbCashier.setGridColor(new java.awt.Color(255, 255, 255));
-        tbCashier.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbCashierLog.setToolTipText("");
+        tbCashierLog.setGridColor(new java.awt.Color(255, 255, 255));
+        tbCashierLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbCashierMouseClicked(evt);
+                tbCashierLogMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbCashier);
-
-        TimeText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TimeText.setBorder(null);
-        TimeText.setEnabled(false);
-        TimeText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TimeTextActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(tbCashierLog);
 
         btBack2.setBackground(new java.awt.Color(255, 102, 0));
         btBack2.setText("Voltar");
@@ -173,7 +145,7 @@ public class ManageCashier2 extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Status:");
+        jLabel5.setText("Status Atual:");
 
         StatusText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         StatusText.setBorder(null);
@@ -199,13 +171,7 @@ public class ManageCashier2 extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -231,7 +197,7 @@ public class ManageCashier2 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -242,12 +208,7 @@ public class ManageCashier2 extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(NumberText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(TimeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66))))
@@ -279,30 +240,19 @@ public class ManageCashier2 extends javax.swing.JFrame {
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
     }//GEN-LAST:event_btBackActionPerformed
 
-    private void btStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStatusActionPerformed
-    }//GEN-LAST:event_btStatusActionPerformed
-
     private void RGTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RGTextActionPerformed
 
-    private void tbCashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCashierMouseClicked
+    private void tbCashierLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCashierLogMouseClicked
 
-    }//GEN-LAST:event_tbCashierMouseClicked
-
-    private void TimeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TimeTextActionPerformed
+    }//GEN-LAST:event_tbCashierLogMouseClicked
 
     private void btBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack1ActionPerformed
     }//GEN-LAST:event_btBack1ActionPerformed
 
     private void btBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack2ActionPerformed
-        try {
-            new ManageCashier().setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(ManageCashier2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new ManageCashier().setVisible(true);
         dispose();
     }//GEN-LAST:event_btBack2ActionPerformed
 
@@ -367,11 +317,7 @@ public class ManageCashier2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new ManageCashier2().setVisible(true);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ManageCashier2.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new ManageCashier2(cashier).setVisible(true);
             }
         });
     }
@@ -380,19 +326,43 @@ public class ManageCashier2 extends javax.swing.JFrame {
     private javax.swing.JTextField NumberText;
     private javax.swing.JTextField RGText;
     private javax.swing.JTextField StatusText;
-    private javax.swing.JTextField TimeText;
     private rojeru_san.RSButton btBack;
     private rojeru_san.RSButton btBack1;
     private rojeru_san.RSButton btBack2;
-    private rojeru_san.RSButton btStatus;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbCashier;
+    private javax.swing.JTable tbCashierLog;
     // End of variables declaration//GEN-END:variables
+
+    private void updateTable() {
+        Iterator<CashierLog> data = cashier.logsIterator();
+
+        Vector<String> header = new Vector<>(4);
+        header.add("ID");
+        header.add("Data");
+        header.add("Hora");
+        header.add("Status");
+
+        Vector lines = new Vector();
+        Vector record = new Vector();
+
+        while (data.hasNext()) {
+            CashierLog log = data.next();
+            record = new Vector(4);
+            record.add(log.getId());
+            record.add(log.getDateRecorded());
+            record.add(log.getTimeRecorded());
+            String text = log.getStatus().equals("closed") ? "Fechado" : "Aberto";
+            record.add(text);
+            lines.add(record);  
+        }
+
+        cashierLogModel = new DefaultTableModel(lines, header);
+        tbCashierLog.setModel(cashierLogModel);
+    }
 }

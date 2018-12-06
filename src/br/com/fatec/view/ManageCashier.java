@@ -1,10 +1,15 @@
 package br.com.fatec.view;
 
+import br.com.fatec.DAO.CashierDAO;
 import br.com.fatec.DAO.DrugDAO;
+import br.com.fatec.model.Cashier;
+import br.com.fatec.model.CashierLog;
 import br.com.fatec.model.Drug;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -14,8 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ManageCashier extends javax.swing.JFrame {
-    public ManageCashier() throws ParseException {
+    private DefaultTableModel cashierTableModel;
+    private CashierDAO cashierDAO = new CashierDAO();
+    private Cashier cashier;
+    
+    public ManageCashier() {
         initComponents();
+        updateTable();
+        btView.setEnabled(false);
+        btOpenClose.setEnabled(false);
         this.setLocationRelativeTo(null);
     }
     @SuppressWarnings("unchecked")
@@ -38,7 +50,8 @@ public class ManageCashier extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCashier = new javax.swing.JTable();
         btBack2 = new rojeru_san.RSButton();
-        btCreate = new rojeru_san.RSButton();
+        btOpenClose = new rojeru_san.RSButton();
+        btCreate1 = new rojeru_san.RSButton();
         jPanel3 = new javax.swing.JPanel();
 
         btBack1.setBackground(new java.awt.Color(1, 198, 83));
@@ -125,14 +138,24 @@ public class ManageCashier extends javax.swing.JFrame {
             }
         });
 
-        btCreate.setBackground(new java.awt.Color(255, 102, 0));
-        btCreate.setText("Criar Caixa");
-        btCreate.setColorHover(new java.awt.Color(204, 51, 0));
-        btCreate.setEnabled(false);
-        btCreate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btCreate.addActionListener(new java.awt.event.ActionListener() {
+        btOpenClose.setBackground(new java.awt.Color(255, 102, 0));
+        btOpenClose.setText("Abrir Caixa");
+        btOpenClose.setColorHover(new java.awt.Color(204, 51, 0));
+        btOpenClose.setEnabled(false);
+        btOpenClose.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btOpenClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCreateActionPerformed(evt);
+                btOpenCloseActionPerformed(evt);
+            }
+        });
+
+        btCreate1.setBackground(new java.awt.Color(255, 102, 0));
+        btCreate1.setText("Criar Caixa");
+        btCreate1.setColorHover(new java.awt.Color(204, 51, 0));
+        btCreate1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btCreate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreate1ActionPerformed(evt);
             }
         });
 
@@ -148,15 +171,16 @@ public class ManageCashier extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(448, 448, 448)
-                                        .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btView, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btOpenClose, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btCreate1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(448, 448, 448)
+                                .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,6 +199,8 @@ public class ManageCashier extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addComponent(RGText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCreate1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,7 +211,7 @@ public class ManageCashier extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btView, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btOpenClose, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 57, Short.MAX_VALUE))))
         );
 
@@ -217,11 +243,7 @@ public class ManageCashier extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btViewActionPerformed
-        try {
-            new ManageCashier2().setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new ManageCashier2(cashier).setVisible(true);
         dispose();
     }//GEN-LAST:event_btViewActionPerformed
 
@@ -230,7 +252,22 @@ public class ManageCashier extends javax.swing.JFrame {
     }//GEN-LAST:event_RGTextActionPerformed
 
     private void tbCashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCashierMouseClicked
-
+        int line = tbCashier.getSelectedRow();
+        int cod = (Integer)tbCashier.getValueAt(line, 0);
+        try {
+            cashier = null;
+            cashier = new Cashier();
+            cashier.setNumber(cod);
+            cashier = cashierDAO.search(cashier);
+            btView.setEnabled(true);
+            String text = cashier.getCurrentStatus().equals("closed") ? "Abrir Caixa" : "Fechar Caixa";
+            btOpenClose.setText(text);
+            btOpenClose.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tbCashierMouseClicked
 
     private void btBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack1ActionPerformed
@@ -241,9 +278,36 @@ public class ManageCashier extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btBack2ActionPerformed
 
-    private void btCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btCreateActionPerformed
+    private void btOpenCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOpenCloseActionPerformed
+        try {
+            String text = cashier.getCurrentStatus().equals("closed") ? "open" : "closed";
+            cashier.setCurrentStatus(text);
+            cashierDAO.edit(cashier);
+            text = cashier.getCurrentStatus().equals("closed") ? "Abrir Caixa" : "Fechar Caixa";
+            btOpenClose.setText(text);
+            CashierLog log = new CashierLog();
+            log.setDateRecorded(LocalDate.now());
+            log.setTimeRecorded(LocalTime.now());
+            log.setStatus(cashier.getCurrentStatus());
+            cashierDAO.insert(log, cashier.getNumber());
+            updateTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btOpenCloseActionPerformed
+
+    private void btCreate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreate1ActionPerformed
+        try {
+            cashierDAO.insert(null);
+            updateTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btCreate1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,11 +354,7 @@ public class ManageCashier extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new ManageCashier().setVisible(true);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ManageCashier.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new ManageCashier().setVisible(true);
             }
         });
     }
@@ -304,7 +364,8 @@ public class ManageCashier extends javax.swing.JFrame {
     private rojeru_san.RSButton btBack;
     private rojeru_san.RSButton btBack1;
     private rojeru_san.RSButton btBack2;
-    private rojeru_san.RSButton btCreate;
+    private rojeru_san.RSButton btCreate1;
+    private rojeru_san.RSButton btOpenClose;
     private rojeru_san.RSButton btView;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
@@ -313,4 +374,31 @@ public class ManageCashier extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCashier;
     // End of variables declaration//GEN-END:variables
+
+    private void updateTable() {
+       try {
+            List<Cashier> data = cashierDAO.list("");
+
+            Vector<String> header = new Vector<>(1);
+            header.add("Número do caixa");
+            
+            Vector lines = new Vector();
+            Vector record = new Vector();
+            
+            for(Cashier cashier : data) {
+                record = new Vector(1);
+                record.add(cashier.getNumber());
+                lines.add(record);                
+            }
+            cashierTableModel = new DefaultTableModel(lines, header);
+            tbCashier.setModel(cashierTableModel);
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

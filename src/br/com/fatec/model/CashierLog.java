@@ -7,7 +7,16 @@ public class CashierLog {
     private int id;
     private LocalDate dateRecorded;
     private LocalTime timeRecorded;
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -31,6 +40,14 @@ public class CashierLog {
             return false;
         }
         return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getDateRecorded() {

@@ -83,18 +83,18 @@
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jScrollPane1" min="-2" pref="655" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="448" max="-2" attributes="0"/>
-                                          <Component id="RGText" min="-2" pref="153" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="btView" min="-2" pref="132" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btCreate" min="-2" pref="132" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="btOpenClose" min="-2" pref="132" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="btCreate1" min="-2" pref="132" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jScrollPane1" min="-2" pref="655" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="448" max="-2" attributes="0"/>
+                                  <Component id="RGText" min="-2" pref="153" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -120,6 +120,8 @@
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           <Component id="RGText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btCreate1" min="-2" pref="23" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btBack" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btBack2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -132,7 +134,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btView" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="btCreate" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btOpenClose" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="20" pref="57" max="32767" attributes="0"/>
                       </Group>
@@ -250,12 +252,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btBack2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="rojeru_san.RSButton" name="btCreate">
+        <Component class="rojeru_san.RSButton" name="btOpenClose">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="66" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Criar Caixa"/>
+            <Property name="text" type="java.lang.String" value="Abrir Caixa"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="33" red="cc" type="rgb"/>
             </Property>
@@ -265,7 +267,24 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCreateActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOpenCloseActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="rojeru_san.RSButton" name="btCreate1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Criar Caixa"/>
+            <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="33" red="cc" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCreate1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

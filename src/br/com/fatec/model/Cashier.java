@@ -1,17 +1,27 @@
 package br.com.fatec.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Cashier {
-    private int id;
+    private int number;
     private ArrayList<CashierLog> logs = new ArrayList<>();
+    private String currentStatus;
 
-    public int getId() {
-        return id;
+    public String getCurrentStatus() {
+        return currentStatus;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+    
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int id) {
+        this.number = id;
     }
     
     public void addLog(CashierLog log) {
@@ -20,5 +30,9 @@ public class Cashier {
     
     public void removeLog(CashierLog log) {
         logs.remove(log);
+    }
+    
+    public Iterator<CashierLog> logsIterator() {
+        return logs.iterator();
     }
 }

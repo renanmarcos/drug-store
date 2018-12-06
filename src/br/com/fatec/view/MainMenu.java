@@ -169,11 +169,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btOrderActionPerformed
 
     private void btCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCashierActionPerformed
-        try {
-            new ManageCashier().setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new ManageCashier().setVisible(true);
         dispose();
     }//GEN-LAST:event_btCashierActionPerformed
 

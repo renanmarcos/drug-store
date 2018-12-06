@@ -55,14 +55,16 @@ public class OrderDAO implements DAO <Order> {
             if (generatedKeys.next()) {    
                 int orderId = generatedKeys.getInt(1);
                 for (Map.Entry<Drug, Integer> entry : obj.getEntrySet()) { 
-                    sql = "INSERT INTO OrderItems"
-                            + "(order_id, drug_id, quantity) "
-                            + "VALUES (?, ?, ?);";
-                    pst = Database.getConnection().prepareStatement(sql);            
-                    pst.setInt(1, orderId);       
-                    pst.setInt(2, entry.getKey().getIdDrug());
-                    pst.setInt(3, entry.getValue());
-                    if (pst.executeUpdate() <= 0) break;
+                    if (entry.getValue() > 0) {
+                        sql = "INSERT INTO OrderItems"
+                                + "(order_id, drug_id, quantity) "
+                                + "VALUES (?, ?, ?);";
+                        pst = Database.getConnection().prepareStatement(sql);            
+                        pst.setInt(1, orderId);       
+                        pst.setInt(2, entry.getKey().getIdDrug());
+                        pst.setInt(3, entry.getValue());
+                        pst.executeUpdate();
+                    }
                 }                
                 Database.close();
                 return true;
@@ -80,40 +82,47 @@ public class OrderDAO implements DAO <Order> {
     public boolean edit(Order obj) 
             throws SQLException, ClassNotFoundException{
         String sql;
-        sql = "UPDATE OrderInfo SET date_ordered = ?, time_ordered = ?, "
-            + "subtotal = ?, discount = ?, freight = ?, total = ?,"
-                + " special_client_id = ? WHERE id = ?;";
+        sql = "UPDATE OrderInfo SET subtotal = ?, discount = ?, "
+                + "freight = ?, total = ? WHERE id = ?";
         
         Database.open();
-        pst = Database.getConnection().prepareStatement(sql);        
-        pst.setDate(1, Date.valueOf(obj.getDateOrdered()));
-        pst.setTime(2, Time.valueOf(obj.getTimeOrdered()));
+        Connection con = Database.getConnection();
+        con.setAutoCommit(false);
+        pst = con.prepareStatement(sql);
         float subtotal = 0;
         for (Map.Entry<Drug, Integer> entry : obj.getEntrySet()) {            
             subtotal += entry.getKey().getUnitprice() * entry.getValue();
         }
         float discount = obj.getDiscount();
         float freight = obj.getFreight();
-        pst.setFloat(3, subtotal);
-        pst.setFloat(4, discount);
-        pst.setFloat(5, freight);
-        pst.setFloat(6, (subtotal + freight) - discount);
-        pst.setFloat(7, obj.getId());
-        pst.setInt(8, obj.getSpecialClient().getIdConsumer());
+        pst.setFloat(1, subtotal);
+        pst.setFloat(2, discount);
+        pst.setFloat(3, freight);
+        pst.setFloat(4, (subtotal + freight) - discount);
+        pst.setFloat(5, obj.getId());
 
         if (pst.executeUpdate() > 0) {               
             int orderId = obj.getId();
+            sql = "DELETE FROM OrderItems WHERE order_id = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, orderId);
+            pst.addBatch();
+            pst.executeBatch();
+            con.commit();            
             for (Map.Entry<Drug, Integer> entry : obj.getEntrySet()) { 
-                sql = "UPDATE OrderItems SET "
-                        + "drug_id = ?, quantity = ? WHERE order_id = ?;";
-                pst = Database.getConnection().prepareStatement(sql);        
-                pst.setInt(1, entry.getKey().getIdDrug());
-                pst.setInt(2, entry.getValue());
-                pst.setInt(3, orderId);
-                if (pst.executeUpdate() <= 0) break;
+                if (entry.getValue() > 0) {
+                    sql = "INSERT INTO OrderItems (drug_id, quantity, order_id)"
+                        + " VALUES (?, ?, ?)";
+                    pst = con.prepareStatement(sql); 
+                    pst.setInt(1, entry.getKey().getIdDrug());
+                    pst.setInt(2, entry.getValue());
+                    pst.setInt(3, orderId);
+                    pst.executeUpdate();
+                    con.commit();
+                }
             }
-                Database.close();
-                return true;       
+            Database.close();
+            return true;
         } else {
             Database.close();
             return false;

@@ -10,6 +10,8 @@ import br.com.fatec.services.StringTools;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -355,7 +357,7 @@ public class ListOrders extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ClientText, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ClientText, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -459,13 +461,20 @@ public class ListOrders extends javax.swing.JFrame {
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
         if (fieldsIsFilled()) {
             try {
+                String discount = DiscountText.getText().replace(".", "").replace(",", ".");
+                order.setDiscount(Float.parseFloat(discount));
+                String freight = FreightText.getText().replace(".", "").replace(",", ".");
+                order.setFreight(Float.parseFloat(freight));
+                
                 if(orderDAO.edit(order)) {
                     JOptionPane.showMessageDialog(this,
                             "Cadastro Alterado com Sucesso!",
                             "Mensagem ao Usuário",
                             JOptionPane.INFORMATION_MESSAGE);
-                }
-                else {
+                    TableFill();
+                    updateDrugTable();
+                    updateSubTotal();
+                } else {
                     JOptionPane.showMessageDialog(this,
                             "Erro ao Alterar",
                             "Mensagem ao Usuário",
@@ -499,9 +508,6 @@ public class ListOrders extends javax.swing.JFrame {
             order.setId(cod);
             order = orderDAO.search(order);
             
-//            String zeros = "00000";
-//            String numero = Float.toString(order.getDiscount()).replace(".", "");
-//            String test =  numero.substring(numero.length() - 5);
             if(order != null) {
                 ClientText.setText(order.getSpecialClient().toString());
                 DateText.setText(order.getDateOrdered().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -691,9 +697,6 @@ public class ListOrders extends javax.swing.JFrame {
         tbDrugs.setModel(null);
     }    
     private void Enable() {
-        DateText.setEnabled(true);
-        TimeText.setEnabled(true);
-        ClientText.setEnabled(true);
         DiscountText.setEnabled(true); 
         btEdit.setEnabled(true);
         btDelete.setEnabled(true);
@@ -719,28 +722,6 @@ public class ListOrders extends javax.swing.JFrame {
         FreightText.setEnabled(false);
     }
     
-//    public String ConvertDateToDatabase(String date) {
-//        java.util.Date formatDate;
-//        String databaseDate = "";
-//        try {
-//            formatDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-//            databaseDate = new SimpleDateFormat("yyyy-MM-dd").format(formatDate);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return databaseDate;
-//    }
-//    public String ConvertDateToString(String date) {
-//        java.util.Date formatDate;
-//        String databaseDate = "";
-//        try {
-//            formatDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-//            databaseDate = new SimpleDateFormat("ddMMyyyy").format(formatDate);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ListOrders.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return databaseDate;
-//    }
     private void TableFill() {
         try {
             List<Order> data = orderDAO.list("");
@@ -789,15 +770,17 @@ public class ListOrders extends javax.swing.JFrame {
     }
     
     private void updateDrugTable() {
-        Vector<String> header = new Vector<>(2);
+        Vector<String> header = new Vector<>(3);
         header.add("Nome do medicamento");
+        header.add("Preço do medicamento");
         header.add("Quantidade");
         Vector rows = new Vector();
         
         for(Map.Entry<Drug, Integer> entry : order.getEntrySet()) {
             if (entry.getValue() > 0) {
-                Vector data = new Vector(2);
+                Vector data = new Vector(3);
                 data.add(entry.getKey().getComname());
+                data.add(entry.getKey().getUnitprice());
                 data.add(entry.getValue());
                 rows.add(data);
             }               
